@@ -1,5 +1,7 @@
 module github.com/terraform-providers/terraform-provider-netlify
 
+go 1.14
+
 require (
 	contrib.go.opencensus.io/exporter/ocagent v0.5.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20190424111038-f61b66f89f4a // indirect
