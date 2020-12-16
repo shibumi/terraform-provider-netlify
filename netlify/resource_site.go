@@ -79,6 +79,12 @@ func resourceSite() *schema.Resource {
 							Type:     schema.TypeString,
 							Required: true,
 						},
+
+						"branch_deploys": {
+							Type:     schema.TypeList,
+							Optional: true,
+							Elem:     schema.TypeString,
+						},
 					},
 				},
 			},
@@ -143,14 +149,24 @@ func resourceSiteRead(d *schema.ResourceData, metaRaw interface{}) error {
 	d.Set("repo", nil)
 
 	if site.BuildSettings != nil && site.BuildSettings.RepoPath != "" {
+		branchDeploys := []string{}
+
+		for _, allowedBranch := range site.BuildSettings.AllowedBranches {
+			if allowedBranch == site.BuildSettings.RepoBranch {
+				continue
+			}
+			branchDeploys = append(branchDeploys, allowedBranch)
+		}
+
 		d.Set("repo", []interface{}{
 			map[string]interface{}{
-				"command":       site.BuildSettings.Cmd,
-				"deploy_key_id": site.BuildSettings.DeployKeyID,
-				"dir":           site.BuildSettings.Dir,
-				"provider":      site.BuildSettings.Provider,
-				"repo_path":     site.BuildSettings.RepoPath,
-				"repo_branch":   site.BuildSettings.RepoBranch,
+				"command":        site.BuildSettings.Cmd,
+				"deploy_key_id":  site.BuildSettings.DeployKeyID,
+				"dir":            site.BuildSettings.Dir,
+				"provider":       site.BuildSettings.Provider,
+				"repo_path":      site.BuildSettings.RepoPath,
+				"repo_branch":    site.BuildSettings.RepoBranch,
+				"branch_deploys": branchDeploys,
 			},
 		})
 	}
@@ -194,13 +210,20 @@ func resourceSite_setupStruct(d *schema.ResourceData) *models.SiteSetup {
 		vL := v.([]interface{})
 		repo := vL[0].(map[string]interface{})
 
+		allowedBranches := []string{repo["repo_branch"].(string)}
+
+		for _, branch := range repo["branch_deploys"].([]string) {
+			allowedBranches = append(allowedBranches, branch)
+		}
+
 		result.Repo = &models.RepoInfo{
-			Cmd:         repo["command"].(string),
-			DeployKeyID: repo["deploy_key_id"].(string),
-			Dir:         repo["dir"].(string),
-			Provider:    repo["provider"].(string),
-			RepoPath:    repo["repo_path"].(string),
-			RepoBranch:  repo["repo_branch"].(string),
+			Cmd:             repo["command"].(string),
+			DeployKeyID:     repo["deploy_key_id"].(string),
+			Dir:             repo["dir"].(string),
+			Provider:        repo["provider"].(string),
+			RepoPath:        repo["repo_path"].(string),
+			RepoBranch:      repo["repo_branch"].(string),
+			AllowedBranches: allowedBranches,
 		}
 	}
 
