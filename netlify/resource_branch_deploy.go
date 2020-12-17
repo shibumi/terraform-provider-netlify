@@ -33,21 +33,11 @@ func resourceBranchDeploy() *schema.Resource {
 	}
 }
 
-var mutexes map[string]*sync.Mutex
-
-func getMutex(siteId string) (mutex *sync.Mutex) {
-	var ok bool
-	if mutex, ok = mutexes[siteId]; !ok {
-		mutex = &sync.Mutex{}
-		mutexes[siteId] = mutex
-	}
-	return
-}
+var mutex sync.Mutex
 
 func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) error {
 	siteId := d.Get("site_id").(string)
 
-	mutex := getMutex(siteId)
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -83,7 +73,6 @@ func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) err
 func resourceBranchDeployRead(d *schema.ResourceData, metaRaw interface{}) error {
 	siteId := d.Get("site_id").(string)
 
-	mutex := getMutex(siteId)
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -111,7 +100,6 @@ func resourceBranchDeployRead(d *schema.ResourceData, metaRaw interface{}) error
 func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) error {
 	siteId := d.Get("site_id").(string)
 
-	mutex := getMutex(siteId)
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -151,7 +139,6 @@ func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) err
 func resourceBranchDeployDelete(d *schema.ResourceData, metaRaw interface{}) error {
 	siteId := d.Get("site_id").(string)
 
-	mutex := getMutex(siteId)
 	mutex.Lock()
 	defer mutex.Unlock()
 
