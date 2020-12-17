@@ -7,6 +7,7 @@ import (
 	"github.com/netlify/open-api/go/models"
 	"github.com/netlify/open-api/go/plumbing/operations"
 	"sync"
+	"time"
 )
 
 func resourceBranchDeploy() *schema.Resource {
@@ -66,8 +67,15 @@ func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) err
 		},
 	}
 	_, err = meta.Netlify.Operations.UpdateSite(patch, meta.AuthInfo)
+
+	if err != nil {
+		return err
+	}
+
 	d.SetId(branch)
-	return err
+	time.Sleep(time.Second * 3)
+
+	return nil
 }
 
 func resourceBranchDeployRead(d *schema.ResourceData, metaRaw interface{}) error {
@@ -93,6 +101,8 @@ func resourceBranchDeployRead(d *schema.ResourceData, metaRaw interface{}) error
 	}
 
 	d.SetId("")
+
+	time.Sleep(time.Second * 3)
 
 	return nil
 }
@@ -133,7 +143,13 @@ func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) err
 
 	_, err = meta.Netlify.Operations.UpdateSite(params, meta.AuthInfo)
 
-	return err
+	if err != nil {
+		return err
+	}
+
+	time.Sleep(time.Second * 3)
+
+	return nil
 }
 
 func resourceBranchDeployDelete(d *schema.ResourceData, metaRaw interface{}) error {
@@ -172,7 +188,13 @@ func resourceBranchDeployDelete(d *schema.ResourceData, metaRaw interface{}) err
 
 	_, err = meta.Netlify.Operations.UpdateSite(params, meta.AuthInfo)
 
-	return err
+	if err != nil {
+		return err
+	}
+
+	time.Sleep(time.Second * 3)
+
+	return nil
 }
 
 func resourceBranchDeploy_getBranchAndBranches(d *schema.ResourceData, meta *Meta) (string, []string, error) {
