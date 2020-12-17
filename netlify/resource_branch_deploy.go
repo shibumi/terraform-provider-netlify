@@ -34,7 +34,7 @@ func resourceBranchDeploy() *schema.Resource {
 
 func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) error {
 	meta := metaRaw.(*Meta)
-	b, branches, err := resourceBranchDeploy_getBranchAndBranches(d, meta)
+	repoBranch, branches, err := resourceBranchDeploy_getBranchAndBranches(d, meta)
 	if err != nil {
 		return err
 	}
@@ -46,7 +46,7 @@ func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) err
 			return errors.New(fmt.Sprintf("Branch deploy %s already exists", branch))
 		}
 	}
-	branches = append(branches, branch, b)
+	branches = append(branches, branch, repoBranch)
 
 	patch := operations.NewUpdateSiteParams()
 	patch.SiteID = d.Get("site_id").(string)
@@ -105,9 +105,12 @@ func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) err
 	params := operations.NewUpdateSiteParams()
 	params.SiteID = d.Get("site_id").(string)
 
-	params.Site = &models.SiteSetup{}
-	params.Site.Repo = &models.RepoInfo{
-		AllowedBranches: newBranches,
+	params.Site = &models.SiteSetup{
+		Site: models.Site{
+			BuildSettings: &models.RepoInfo{
+				AllowedBranches: newBranches,
+			},
+		},
 	}
 
 	_, err = meta.Netlify.Operations.UpdateSite(params, meta.AuthInfo)
@@ -136,9 +139,12 @@ func resourceBranchDeployDelete(d *schema.ResourceData, metaRaw interface{}) err
 	params := operations.NewUpdateSiteParams()
 	params.SiteID = d.Get("site_id").(string)
 
-	params.Site = &models.SiteSetup{}
-	params.Site.Repo = &models.RepoInfo{
-		AllowedBranches: newBranches,
+	params.Site = &models.SiteSetup{
+		Site: models.Site{
+			BuildSettings: &models.RepoInfo{
+				AllowedBranches: newBranches,
+			},
+		},
 	}
 
 	_, err = meta.Netlify.Operations.UpdateSite(params, meta.AuthInfo)
