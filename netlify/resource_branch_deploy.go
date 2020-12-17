@@ -6,6 +6,7 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/netlify/open-api/go/models"
 	"github.com/netlify/open-api/go/plumbing/operations"
+	"sync"
 )
 
 func resourceBranchDeploy() *schema.Resource {
@@ -32,7 +33,24 @@ func resourceBranchDeploy() *schema.Resource {
 	}
 }
 
+var mutexes map[string]*sync.Mutex
+
+func getMutex(siteId string) (mutex *sync.Mutex) {
+	var ok bool
+	if mutex, ok = mutexes[siteId]; !ok {
+		mutex = &sync.Mutex{}
+		mutexes[siteId] = mutex
+	}
+	return
+}
+
 func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) error {
+	siteId := d.Get("site_id").(string)
+
+	mutex := getMutex(siteId)
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	meta := metaRaw.(*Meta)
 	repoBranch, branches, err := resourceBranchDeploy_getBranchAndBranches(d, meta)
 	if err != nil {
@@ -49,7 +67,7 @@ func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) err
 	branches = append(branches, branch, repoBranch)
 
 	patch := operations.NewUpdateSiteParams()
-	patch.SiteID = d.Get("site_id").(string)
+	patch.SiteID = siteId
 	patch.Site = &models.SiteSetup{
 		Site: models.Site{
 			BuildSettings: &models.RepoInfo{
@@ -63,10 +81,16 @@ func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) err
 }
 
 func resourceBranchDeployRead(d *schema.ResourceData, metaRaw interface{}) error {
+	siteId := d.Get("site_id").(string)
+
+	mutex := getMutex(siteId)
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	meta := metaRaw.(*Meta)
 
 	params := operations.NewGetSiteParams()
-	params.SiteID = d.Get("site_id").(string)
+	params.SiteID = siteId
 	resp, err := meta.Netlify.Operations.GetSite(params, meta.AuthInfo)
 	if err != nil {
 		return err
@@ -85,6 +109,12 @@ func resourceBranchDeployRead(d *schema.ResourceData, metaRaw interface{}) error
 }
 
 func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) error {
+	siteId := d.Get("site_id").(string)
+
+	mutex := getMutex(siteId)
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	meta := metaRaw.(*Meta)
 
 	oldBranch := d.Id()
@@ -103,7 +133,7 @@ func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) err
 	newBranches = append(newBranches, b, d.Get("branch").(string))
 
 	params := operations.NewUpdateSiteParams()
-	params.SiteID = d.Get("site_id").(string)
+	params.SiteID = siteId
 
 	params.Site = &models.SiteSetup{
 		Site: models.Site{
@@ -119,6 +149,12 @@ func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) err
 }
 
 func resourceBranchDeployDelete(d *schema.ResourceData, metaRaw interface{}) error {
+	siteId := d.Get("site_id").(string)
+
+	mutex := getMutex(siteId)
+	mutex.Lock()
+	defer mutex.Unlock()
+
 	meta := metaRaw.(*Meta)
 
 	oldBranch := d.Id()
@@ -137,7 +173,7 @@ func resourceBranchDeployDelete(d *schema.ResourceData, metaRaw interface{}) err
 	newBranches = append(newBranches, b)
 
 	params := operations.NewUpdateSiteParams()
-	params.SiteID = d.Get("site_id").(string)
+	params.SiteID = siteId
 
 	params.Site = &models.SiteSetup{
 		Site: models.Site{
