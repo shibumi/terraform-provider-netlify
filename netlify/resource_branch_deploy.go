@@ -28,6 +28,7 @@ func resourceBranchDeploy() *schema.Resource {
 			"branch": {
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
 			},
 		},
 	}

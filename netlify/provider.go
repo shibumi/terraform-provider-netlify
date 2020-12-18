@@ -31,6 +31,8 @@ func Provider() terraform.ResourceProvider {
 			"netlify_deploy_key":    resourceDeployKey(),
 			"netlify_hook":          resourceHook(),
 			"netlify_site":          resourceSite(),
+			"netlify_dns_zone":      resourceDnsZone(),
+			"netlify_dns_record":    resourceDnsRecord(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{},
