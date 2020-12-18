@@ -7,7 +7,6 @@ import (
 	"github.com/netlify/open-api/go/models"
 	"github.com/netlify/open-api/go/plumbing/operations"
 	"sync"
-	"time"
 )
 
 func resourceBranchDeploy() *schema.Resource {
@@ -73,7 +72,6 @@ func resourceBranchDeployCreate(d *schema.ResourceData, metaRaw interface{}) err
 	}
 
 	d.SetId(branch)
-	time.Sleep(time.Second * 3)
 
 	return nil
 }
@@ -101,8 +99,6 @@ func resourceBranchDeployRead(d *schema.ResourceData, metaRaw interface{}) error
 	}
 
 	d.SetId("")
-
-	time.Sleep(time.Second * 3)
 
 	return nil
 }
@@ -147,8 +143,6 @@ func resourceBranchDeployUpdate(d *schema.ResourceData, metaRaw interface{}) err
 		return err
 	}
 
-	time.Sleep(time.Second * 3)
-
 	return nil
 }
 
@@ -192,8 +186,6 @@ func resourceBranchDeployDelete(d *schema.ResourceData, metaRaw interface{}) err
 		return err
 	}
 
-	time.Sleep(time.Second * 3)
-
 	return nil
 }
 
@@ -208,7 +200,7 @@ func resourceBranchDeploy_getBranchAndBranches(d *schema.ResourceData, meta *Met
 	var branches []string
 	for _, b := range resp.Payload.BuildSettings.AllowedBranches {
 		if b != branch {
-			branches = append(branches, branch)
+			branches = append(branches, b)
 		}
 	}
 	return branch, branches, nil
