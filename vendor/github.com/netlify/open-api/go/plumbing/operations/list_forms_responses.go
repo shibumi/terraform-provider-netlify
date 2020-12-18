@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // ListFormsReader is a Reader for the ListForms structure.
@@ -24,14 +23,12 @@ type ListFormsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListFormsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListFormsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListFormsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListFormsOK struct {
 
 func (o *ListFormsOK) Error() string {
 	return fmt.Sprintf("[GET /forms][%d] listFormsOK  %+v", 200, o.Payload)
+}
+
+func (o *ListFormsOK) GetPayload() []*models.Form {
+	return o.Payload
 }
 
 func (o *ListFormsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListFormsDefault) Code() int {
 
 func (o *ListFormsDefault) Error() string {
 	return fmt.Sprintf("[GET /forms][%d] listForms default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListFormsDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *ListFormsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

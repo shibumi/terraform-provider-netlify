@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // GetSiteBuildReader is a Reader for the GetSiteBuild structure.
@@ -24,14 +23,12 @@ type GetSiteBuildReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSiteBuildReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSiteBuildOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetSiteBuildDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type GetSiteBuildOK struct {
 
 func (o *GetSiteBuildOK) Error() string {
 	return fmt.Sprintf("[GET /builds/{build_id}][%d] getSiteBuildOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSiteBuildOK) GetPayload() *models.Build {
+	return o.Payload
 }
 
 func (o *GetSiteBuildOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *GetSiteBuildDefault) Code() int {
 
 func (o *GetSiteBuildDefault) Error() string {
 	return fmt.Sprintf("[GET /builds/{build_id}][%d] getSiteBuild default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetSiteBuildDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *GetSiteBuildDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

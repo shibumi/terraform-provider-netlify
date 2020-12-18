@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // GetSiteAssetPublicSignatureReader is a Reader for the GetSiteAssetPublicSignature structure.
@@ -24,14 +23,12 @@ type GetSiteAssetPublicSignatureReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSiteAssetPublicSignatureReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSiteAssetPublicSignatureOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetSiteAssetPublicSignatureDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type GetSiteAssetPublicSignatureOK struct {
 
 func (o *GetSiteAssetPublicSignatureOK) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/assets/{asset_id}/public_signature][%d] getSiteAssetPublicSignatureOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSiteAssetPublicSignatureOK) GetPayload() *models.AssetPublicSignature {
+	return o.Payload
 }
 
 func (o *GetSiteAssetPublicSignatureOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *GetSiteAssetPublicSignatureDefault) Code() int {
 
 func (o *GetSiteAssetPublicSignatureDefault) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/assets/{asset_id}/public_signature][%d] getSiteAssetPublicSignature default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetSiteAssetPublicSignatureDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *GetSiteAssetPublicSignatureDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

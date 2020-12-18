@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // ListSitesReader is a Reader for the ListSites structure.
@@ -24,14 +23,12 @@ type ListSitesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListSitesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListSitesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListSitesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListSitesOK struct {
 
 func (o *ListSitesOK) Error() string {
 	return fmt.Sprintf("[GET /sites][%d] listSitesOK  %+v", 200, o.Payload)
+}
+
+func (o *ListSitesOK) GetPayload() []*models.Site {
+	return o.Payload
 }
 
 func (o *ListSitesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListSitesDefault) Code() int {
 
 func (o *ListSitesDefault) Error() string {
 	return fmt.Sprintf("[GET /sites][%d] listSites default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListSitesDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *ListSitesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

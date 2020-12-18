@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // UpdateSiteBuildHookReader is a Reader for the UpdateSiteBuildHook structure.
@@ -24,14 +23,12 @@ type UpdateSiteBuildHookReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateSiteBuildHookReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewUpdateSiteBuildHookNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewUpdateSiteBuildHookDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +86,10 @@ func (o *UpdateSiteBuildHookDefault) Code() int {
 
 func (o *UpdateSiteBuildHookDefault) Error() string {
 	return fmt.Sprintf("[PUT /sites/{site_id}/build_hooks/{id}][%d] updateSiteBuildHook default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateSiteBuildHookDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *UpdateSiteBuildHookDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

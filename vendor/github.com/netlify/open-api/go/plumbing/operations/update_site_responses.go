@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // UpdateSiteReader is a Reader for the UpdateSite structure.
@@ -24,14 +23,12 @@ type UpdateSiteReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateSiteReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateSiteOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewUpdateSiteDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type UpdateSiteOK struct {
 
 func (o *UpdateSiteOK) Error() string {
 	return fmt.Sprintf("[PATCH /sites/{site_id}][%d] updateSiteOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateSiteOK) GetPayload() *models.Site {
+	return o.Payload
 }
 
 func (o *UpdateSiteOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *UpdateSiteDefault) Code() int {
 
 func (o *UpdateSiteDefault) Error() string {
 	return fmt.Sprintf("[PATCH /sites/{site_id}][%d] updateSite default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateSiteDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *UpdateSiteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

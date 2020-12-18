@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // GetSiteSnippetReader is a Reader for the GetSiteSnippet structure.
@@ -24,14 +23,12 @@ type GetSiteSnippetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSiteSnippetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSiteSnippetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetSiteSnippetDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type GetSiteSnippetOK struct {
 
 func (o *GetSiteSnippetOK) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/snippets/{snippet_id}][%d] getSiteSnippetOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSiteSnippetOK) GetPayload() *models.Snippet {
+	return o.Payload
 }
 
 func (o *GetSiteSnippetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *GetSiteSnippetDefault) Code() int {
 
 func (o *GetSiteSnippetDefault) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/snippets/{snippet_id}][%d] getSiteSnippet default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetSiteSnippetDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *GetSiteSnippetDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

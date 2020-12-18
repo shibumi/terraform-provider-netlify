@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // ConfigureDNSForSiteReader is a Reader for the ConfigureDNSForSite structure.
@@ -24,14 +23,12 @@ type ConfigureDNSForSiteReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ConfigureDNSForSiteReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewConfigureDNSForSiteOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewConfigureDNSForSiteDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ConfigureDNSForSiteOK struct {
 
 func (o *ConfigureDNSForSiteOK) Error() string {
 	return fmt.Sprintf("[PUT /sites/{site_id}/dns][%d] configureDnsForSiteOK  %+v", 200, o.Payload)
+}
+
+func (o *ConfigureDNSForSiteOK) GetPayload() []*models.DNSZone {
+	return o.Payload
 }
 
 func (o *ConfigureDNSForSiteOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ConfigureDNSForSiteDefault) Code() int {
 
 func (o *ConfigureDNSForSiteDefault) Error() string {
 	return fmt.Sprintf("[PUT /sites/{site_id}/dns][%d] configureDNSForSite default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ConfigureDNSForSiteDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *ConfigureDNSForSiteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

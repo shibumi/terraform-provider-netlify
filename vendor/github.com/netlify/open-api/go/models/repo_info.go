@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // RepoInfo repo info
+//
 // swagger:model repoInfo
 type RepoInfo struct {
 
@@ -34,7 +34,7 @@ type RepoInfo struct {
 	ID int64 `json:"id,omitempty"`
 
 	// installation id
-	InstallationID string `json:"installation_id,omitempty"`
+	InstallationID int64 `json:"installation_id,omitempty"`
 
 	// private logs
 	PrivateLogs bool `json:"private_logs,omitempty"`
@@ -53,6 +53,9 @@ type RepoInfo struct {
 
 	// repo url
 	RepoURL string `json:"repo_url,omitempty"`
+
+	// stop builds
+	StopBuilds bool `json:"stop_builds,omitempty"`
 }
 
 // Validate validates this repo info

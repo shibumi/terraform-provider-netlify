@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // ListPaymentMethodsForUserReader is a Reader for the ListPaymentMethodsForUser structure.
@@ -24,14 +23,12 @@ type ListPaymentMethodsForUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListPaymentMethodsForUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListPaymentMethodsForUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListPaymentMethodsForUserDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListPaymentMethodsForUserOK struct {
 
 func (o *ListPaymentMethodsForUserOK) Error() string {
 	return fmt.Sprintf("[GET /billing/payment_methods][%d] listPaymentMethodsForUserOK  %+v", 200, o.Payload)
+}
+
+func (o *ListPaymentMethodsForUserOK) GetPayload() []*models.PaymentMethod {
+	return o.Payload
 }
 
 func (o *ListPaymentMethodsForUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListPaymentMethodsForUserDefault) Code() int {
 
 func (o *ListPaymentMethodsForUserDefault) Error() string {
 	return fmt.Sprintf("[GET /billing/payment_methods][%d] listPaymentMethodsForUser default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListPaymentMethodsForUserDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *ListPaymentMethodsForUserDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

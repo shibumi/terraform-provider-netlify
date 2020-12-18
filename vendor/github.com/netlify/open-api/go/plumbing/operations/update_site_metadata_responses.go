@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // UpdateSiteMetadataReader is a Reader for the UpdateSiteMetadata structure.
@@ -24,14 +23,12 @@ type UpdateSiteMetadataReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateSiteMetadataReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewUpdateSiteMetadataNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewUpdateSiteMetadataDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +86,10 @@ func (o *UpdateSiteMetadataDefault) Code() int {
 
 func (o *UpdateSiteMetadataDefault) Error() string {
 	return fmt.Sprintf("[PUT /sites/{site_id}/metadata][%d] updateSiteMetadata default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateSiteMetadataDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *UpdateSiteMetadataDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

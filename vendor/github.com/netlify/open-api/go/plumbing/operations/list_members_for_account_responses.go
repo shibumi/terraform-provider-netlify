@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // ListMembersForAccountReader is a Reader for the ListMembersForAccount structure.
@@ -24,14 +23,12 @@ type ListMembersForAccountReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListMembersForAccountReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListMembersForAccountOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListMembersForAccountDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListMembersForAccountOK struct {
 
 func (o *ListMembersForAccountOK) Error() string {
 	return fmt.Sprintf("[GET /{account_slug}/members][%d] listMembersForAccountOK  %+v", 200, o.Payload)
+}
+
+func (o *ListMembersForAccountOK) GetPayload() []*models.Member {
+	return o.Payload
 }
 
 func (o *ListMembersForAccountOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListMembersForAccountDefault) Code() int {
 
 func (o *ListMembersForAccountDefault) Error() string {
 	return fmt.Sprintf("[GET /{account_slug}/members][%d] listMembersForAccount default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListMembersForAccountDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *ListMembersForAccountDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

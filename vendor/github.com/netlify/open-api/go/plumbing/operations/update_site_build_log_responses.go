@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // UpdateSiteBuildLogReader is a Reader for the UpdateSiteBuildLog structure.
@@ -24,14 +23,12 @@ type UpdateSiteBuildLogReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateSiteBuildLogReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewUpdateSiteBuildLogNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewUpdateSiteBuildLogDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +86,10 @@ func (o *UpdateSiteBuildLogDefault) Code() int {
 
 func (o *UpdateSiteBuildLogDefault) Error() string {
 	return fmt.Sprintf("[POST /builds/{build_id}/log][%d] updateSiteBuildLog default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateSiteBuildLogDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *UpdateSiteBuildLogDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

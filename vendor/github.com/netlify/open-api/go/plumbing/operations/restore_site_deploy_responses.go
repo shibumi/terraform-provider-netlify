@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // RestoreSiteDeployReader is a Reader for the RestoreSiteDeploy structure.
@@ -24,14 +23,12 @@ type RestoreSiteDeployReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestoreSiteDeployReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewRestoreSiteDeployCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewRestoreSiteDeployDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type RestoreSiteDeployCreated struct {
 
 func (o *RestoreSiteDeployCreated) Error() string {
 	return fmt.Sprintf("[POST /sites/{site_id}/deploys/{deploy_id}/restore][%d] restoreSiteDeployCreated  %+v", 201, o.Payload)
+}
+
+func (o *RestoreSiteDeployCreated) GetPayload() *models.Deploy {
+	return o.Payload
 }
 
 func (o *RestoreSiteDeployCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *RestoreSiteDeployDefault) Code() int {
 
 func (o *RestoreSiteDeployDefault) Error() string {
 	return fmt.Sprintf("[POST /sites/{site_id}/deploys/{deploy_id}/restore][%d] restoreSiteDeploy default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *RestoreSiteDeployDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *RestoreSiteDeployDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

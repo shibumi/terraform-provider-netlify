@@ -18,7 +18,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/cenkalti/backoff"
+	"github.com/cenkalti/backoff/v4"
 	"github.com/sirupsen/logrus"
 
 	"github.com/netlify/open-api/go/models"
@@ -60,6 +60,10 @@ type DeployObserver interface {
 	OnSetupUpload(*FileBundle) error
 	OnSuccessfulUpload(*FileBundle) error
 	OnFailedUpload(*FileBundle)
+}
+
+type DeployWarner interface {
+	OnWalkWarning(path, msg string)
 }
 
 // DeployOptions holds the option for creating a new deploy
@@ -307,7 +311,7 @@ func (n *Netlify) waitForState(ctx context.Context, d *models.Deploy, timeout ti
 		context.GetLogger(ctx).WithFields(logrus.Fields{
 			"deploy_id": d.ID,
 			"state":     resp.Payload.State,
-		}).Debug("Waiting until deploy ready")
+		}).Debugf("Waiting until deploy state in %s", states)
 
 		for _, state := range states {
 			if resp.Payload.State == state {
@@ -327,12 +331,22 @@ func (n *Netlify) waitForState(ctx context.Context, d *models.Deploy, timeout ti
 	return d, nil
 }
 
+// WaitUntilDeployReady blocks until the deploy is in the "prepared" or "ready" state.
 func (n *Netlify) WaitUntilDeployReady(ctx context.Context, d *models.Deploy, timeout time.Duration) (*models.Deploy, error) {
 	if timeout <= 0 {
 		timeout = preProcessingTimeout
 	}
 
 	return n.waitForState(ctx, d, timeout, "prepared", "ready")
+}
+
+// WaitUntilDeployLive blocks until the deploy is in the or "ready" state. At this point, the deploy is ready to recieve traffic.
+func (n *Netlify) WaitUntilDeployLive(ctx context.Context, d *models.Deploy, timeout time.Duration) (*models.Deploy, error) {
+	if timeout <= 0 {
+		timeout = preProcessingTimeout
+	}
+
+	return n.waitForState(ctx, d, timeout, "ready")
 }
 
 func (n *Netlify) uploadFiles(ctx context.Context, d *models.Deploy, files *deployFiles, observer DeployObserver, t uploadType, timeout time.Duration) error {
@@ -579,12 +593,16 @@ func bundle(functionDir string, observer DeployObserver) (*deployFiles, error) {
 				return nil, err
 			}
 			functions.Add(file.Name, file)
-		case goFile(filePath, i):
+		case goFile(filePath, i, observer):
 			file, err := newFunctionFile(filePath, i, goRuntime, observer)
 			if err != nil {
 				return nil, err
 			}
 			functions.Add(file.Name, file)
+		default:
+			if warner, ok := observer.(DeployWarner); ok {
+				warner.OnWalkWarning(filePath, "Function is not valid for deployment. Please check that it matches the format for the runtime.")
+			}
 		}
 	}
 
@@ -653,17 +671,31 @@ func jsFile(i os.FileInfo) bool {
 	return filepath.Ext(i.Name()) == ".js"
 }
 
-func goFile(filePath string, i os.FileInfo) bool {
+func goFile(filePath string, i os.FileInfo, observer DeployObserver) bool {
+	warner, hasWarner := observer.(DeployWarner)
+
 	if m := i.Mode(); m&0111 == 0 { // check if it's an executable file
+		if hasWarner {
+			warner.OnWalkWarning(filePath, "Go binary does not have executable permissions")
+		}
 		return false
 	}
 
 	if _, err := elf.Open(filePath); err != nil { // check if it's a linux executable
+		if hasWarner {
+			warner.OnWalkWarning(filePath, "Go binary is not a linux executable")
+		}
 		return false
 	}
 
 	v, err := version.ReadExe(filePath)
-	return err == nil && strings.HasPrefix(v.Release, "go1.")
+	if err != nil || !strings.HasPrefix(v.Release, "go1.") {
+		if hasWarner {
+			warner.OnWalkWarning(filePath, "Unable to detect Go version 1.x")
+		}
+	}
+
+	return true
 }
 
 func ignoreFile(rel string) bool {

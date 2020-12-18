@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // UpdateServiceInstanceReader is a Reader for the UpdateServiceInstance structure.
@@ -24,14 +23,12 @@ type UpdateServiceInstanceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateServiceInstanceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewUpdateServiceInstanceNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewUpdateServiceInstanceDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -51,13 +48,13 @@ func NewUpdateServiceInstanceNoContent() *UpdateServiceInstanceNoContent {
 
 /*UpdateServiceInstanceNoContent handles this case with default header values.
 
-Created
+No Content
 */
 type UpdateServiceInstanceNoContent struct {
 }
 
 func (o *UpdateServiceInstanceNoContent) Error() string {
-	return fmt.Sprintf("[PUT /sites/{site_id}/services/{addon}/instances][%d] updateServiceInstanceNoContent ", 204)
+	return fmt.Sprintf("[PUT /sites/{site_id}/services/{addon}/instances/{instance_id}][%d] updateServiceInstanceNoContent ", 204)
 }
 
 func (o *UpdateServiceInstanceNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -88,7 +85,11 @@ func (o *UpdateServiceInstanceDefault) Code() int {
 }
 
 func (o *UpdateServiceInstanceDefault) Error() string {
-	return fmt.Sprintf("[PUT /sites/{site_id}/services/{addon}/instances][%d] updateServiceInstance default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[PUT /sites/{site_id}/services/{addon}/instances/{instance_id}][%d] updateServiceInstance default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateServiceInstanceDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *UpdateServiceInstanceDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

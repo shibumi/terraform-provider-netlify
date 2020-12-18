@@ -6,17 +6,20 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // DeployFiles deploy files
+//
 // swagger:model deployFiles
 type DeployFiles struct {
 
 	// async
 	Async bool `json:"async,omitempty"`
+
+	// branch
+	Branch string `json:"branch,omitempty"`
 
 	// draft
 	Draft bool `json:"draft,omitempty"`

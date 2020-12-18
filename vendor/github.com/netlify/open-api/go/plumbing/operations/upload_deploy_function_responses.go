@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // UploadDeployFunctionReader is a Reader for the UploadDeployFunction structure.
@@ -24,14 +23,12 @@ type UploadDeployFunctionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UploadDeployFunctionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUploadDeployFunctionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewUploadDeployFunctionDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type UploadDeployFunctionOK struct {
 
 func (o *UploadDeployFunctionOK) Error() string {
 	return fmt.Sprintf("[PUT /deploys/{deploy_id}/functions/{name}][%d] uploadDeployFunctionOK  %+v", 200, o.Payload)
+}
+
+func (o *UploadDeployFunctionOK) GetPayload() *models.Function {
+	return o.Payload
 }
 
 func (o *UploadDeployFunctionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *UploadDeployFunctionDefault) Code() int {
 
 func (o *UploadDeployFunctionDefault) Error() string {
 	return fmt.Sprintf("[PUT /deploys/{deploy_id}/functions/{name}][%d] uploadDeployFunction default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UploadDeployFunctionDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *UploadDeployFunctionDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

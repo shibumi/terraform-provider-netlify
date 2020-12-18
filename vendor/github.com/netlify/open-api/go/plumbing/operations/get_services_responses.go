@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // GetServicesReader is a Reader for the GetServices structure.
@@ -24,14 +23,12 @@ type GetServicesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetServicesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetServicesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetServicesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type GetServicesOK struct {
 
 func (o *GetServicesOK) Error() string {
 	return fmt.Sprintf("[GET /services/][%d] getServicesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetServicesOK) GetPayload() []*models.Service {
+	return o.Payload
 }
 
 func (o *GetServicesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *GetServicesDefault) Code() int {
 
 func (o *GetServicesDefault) Error() string {
 	return fmt.Sprintf("[GET /services/][%d] getServices default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetServicesDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *GetServicesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

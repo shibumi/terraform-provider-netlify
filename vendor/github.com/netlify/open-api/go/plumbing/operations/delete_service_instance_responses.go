@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // DeleteServiceInstanceReader is a Reader for the DeleteServiceInstance structure.
@@ -24,14 +23,12 @@ type DeleteServiceInstanceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteServiceInstanceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteServiceInstanceNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewDeleteServiceInstanceDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -57,7 +54,7 @@ type DeleteServiceInstanceNoContent struct {
 }
 
 func (o *DeleteServiceInstanceNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /sites/{site_id}/services/{addon}/instances][%d] deleteServiceInstanceNoContent ", 204)
+	return fmt.Sprintf("[DELETE /sites/{site_id}/services/{addon}/instances/{instance_id}][%d] deleteServiceInstanceNoContent ", 204)
 }
 
 func (o *DeleteServiceInstanceNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -88,7 +85,11 @@ func (o *DeleteServiceInstanceDefault) Code() int {
 }
 
 func (o *DeleteServiceInstanceDefault) Error() string {
-	return fmt.Sprintf("[DELETE /sites/{site_id}/services/{addon}/instances][%d] deleteServiceInstance default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[DELETE /sites/{site_id}/services/{addon}/instances/{instance_id}][%d] deleteServiceInstance default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteServiceInstanceDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *DeleteServiceInstanceDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

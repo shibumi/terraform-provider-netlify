@@ -13,8 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // NewShowServiceInstanceParams creates a new ShowServiceInstanceParams object
@@ -63,6 +62,8 @@ type ShowServiceInstanceParams struct {
 
 	/*Addon*/
 	Addon string
+	/*InstanceID*/
+	InstanceID string
 	/*SiteID*/
 	SiteID string
 
@@ -115,6 +116,17 @@ func (o *ShowServiceInstanceParams) SetAddon(addon string) {
 	o.Addon = addon
 }
 
+// WithInstanceID adds the instanceID to the show service instance params
+func (o *ShowServiceInstanceParams) WithInstanceID(instanceID string) *ShowServiceInstanceParams {
+	o.SetInstanceID(instanceID)
+	return o
+}
+
+// SetInstanceID adds the instanceId to the show service instance params
+func (o *ShowServiceInstanceParams) SetInstanceID(instanceID string) {
+	o.InstanceID = instanceID
+}
+
 // WithSiteID adds the siteID to the show service instance params
 func (o *ShowServiceInstanceParams) WithSiteID(siteID string) *ShowServiceInstanceParams {
 	o.SetSiteID(siteID)
@@ -136,6 +148,11 @@ func (o *ShowServiceInstanceParams) WriteToRequest(r runtime.ClientRequest, reg 
 
 	// path param addon
 	if err := r.SetPathParam("addon", o.Addon); err != nil {
+		return err
+	}
+
+	// path param instance_id
+	if err := r.SetPathParam("instance_id", o.InstanceID); err != nil {
 		return err
 	}
 

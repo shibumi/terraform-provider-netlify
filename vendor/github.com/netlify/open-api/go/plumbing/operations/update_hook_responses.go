@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // UpdateHookReader is a Reader for the UpdateHook structure.
@@ -24,14 +23,12 @@ type UpdateHookReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateHookReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateHookOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewUpdateHookDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type UpdateHookOK struct {
 
 func (o *UpdateHookOK) Error() string {
 	return fmt.Sprintf("[PUT /hooks/{hook_id}][%d] updateHookOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateHookOK) GetPayload() *models.Hook {
+	return o.Payload
 }
 
 func (o *UpdateHookOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *UpdateHookDefault) Code() int {
 
 func (o *UpdateHookDefault) Error() string {
 	return fmt.Sprintf("[PUT /hooks/{hook_id}][%d] updateHook default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateHookDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *UpdateHookDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

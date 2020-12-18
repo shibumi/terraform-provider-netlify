@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // ShowServiceInstanceReader is a Reader for the ShowServiceInstance structure.
@@ -24,14 +23,12 @@ type ShowServiceInstanceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ShowServiceInstanceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewShowServiceInstanceCreated()
+	case 200:
+		result := NewShowServiceInstanceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewShowServiceInstanceDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -44,24 +41,28 @@ func (o *ShowServiceInstanceReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewShowServiceInstanceCreated creates a ShowServiceInstanceCreated with default headers values
-func NewShowServiceInstanceCreated() *ShowServiceInstanceCreated {
-	return &ShowServiceInstanceCreated{}
+// NewShowServiceInstanceOK creates a ShowServiceInstanceOK with default headers values
+func NewShowServiceInstanceOK() *ShowServiceInstanceOK {
+	return &ShowServiceInstanceOK{}
 }
 
-/*ShowServiceInstanceCreated handles this case with default header values.
+/*ShowServiceInstanceOK handles this case with default header values.
 
-Created
+OK
 */
-type ShowServiceInstanceCreated struct {
+type ShowServiceInstanceOK struct {
 	Payload *models.ServiceInstance
 }
 
-func (o *ShowServiceInstanceCreated) Error() string {
-	return fmt.Sprintf("[GET /sites/{site_id}/services/{addon}/instances][%d] showServiceInstanceCreated  %+v", 201, o.Payload)
+func (o *ShowServiceInstanceOK) Error() string {
+	return fmt.Sprintf("[GET /sites/{site_id}/services/{addon}/instances/{instance_id}][%d] showServiceInstanceOK  %+v", 200, o.Payload)
 }
 
-func (o *ShowServiceInstanceCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ShowServiceInstanceOK) GetPayload() *models.ServiceInstance {
+	return o.Payload
+}
+
+func (o *ShowServiceInstanceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ServiceInstance)
 
@@ -96,7 +97,11 @@ func (o *ShowServiceInstanceDefault) Code() int {
 }
 
 func (o *ShowServiceInstanceDefault) Error() string {
-	return fmt.Sprintf("[GET /sites/{site_id}/services/{addon}/instances][%d] showServiceInstance default  %+v", o._statusCode, o.Payload)
+	return fmt.Sprintf("[GET /sites/{site_id}/services/{addon}/instances/{instance_id}][%d] showServiceInstance default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ShowServiceInstanceDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *ShowServiceInstanceDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

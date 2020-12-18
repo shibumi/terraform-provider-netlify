@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // CreateSiteBuildReader is a Reader for the CreateSiteBuild structure.
@@ -24,14 +23,12 @@ type CreateSiteBuildReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateSiteBuildReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCreateSiteBuildOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewCreateSiteBuildDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type CreateSiteBuildOK struct {
 
 func (o *CreateSiteBuildOK) Error() string {
 	return fmt.Sprintf("[POST /sites/{site_id}/builds][%d] createSiteBuildOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateSiteBuildOK) GetPayload() *models.Build {
+	return o.Payload
 }
 
 func (o *CreateSiteBuildOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *CreateSiteBuildDefault) Code() int {
 
 func (o *CreateSiteBuildDefault) Error() string {
 	return fmt.Sprintf("[POST /sites/{site_id}/builds][%d] createSiteBuild default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CreateSiteBuildDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *CreateSiteBuildDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

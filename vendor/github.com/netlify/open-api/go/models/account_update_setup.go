@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AccountUpdateSetup account update setup
+//
 // swagger:model accountUpdateSetup
 type AccountUpdateSetup struct {
 
@@ -29,9 +29,6 @@ type AccountUpdateSetup struct {
 
 	// name
 	Name string `json:"name,omitempty"`
-
-	// payment method id
-	PaymentMethodID string `json:"payment_method_id,omitempty"`
 
 	// slug
 	Slug string `json:"slug,omitempty"`

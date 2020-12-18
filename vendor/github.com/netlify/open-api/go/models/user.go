@@ -6,13 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // User user
+//
 // swagger:model user
 type User struct {
 
@@ -45,9 +45,6 @@ type User struct {
 
 	// site count
 	SiteCount int64 `json:"site_count,omitempty"`
-
-	// support priority
-	SupportPriority int64 `json:"support_priority,omitempty"`
 
 	// uid
 	UID string `json:"uid,omitempty"`

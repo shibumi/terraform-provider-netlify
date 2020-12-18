@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // GetSiteMetadataReader is a Reader for the GetSiteMetadata structure.
@@ -24,14 +23,12 @@ type GetSiteMetadataReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSiteMetadataReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSiteMetadataOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetSiteMetadataDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type GetSiteMetadataOK struct {
 
 func (o *GetSiteMetadataOK) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/metadata][%d] getSiteMetadataOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSiteMetadataOK) GetPayload() models.Metadata {
+	return o.Payload
 }
 
 func (o *GetSiteMetadataOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *GetSiteMetadataDefault) Code() int {
 
 func (o *GetSiteMetadataDefault) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/metadata][%d] getSiteMetadata default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetSiteMetadataDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *GetSiteMetadataDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // ListSiteAssetsReader is a Reader for the ListSiteAssets structure.
@@ -24,14 +23,12 @@ type ListSiteAssetsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListSiteAssetsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListSiteAssetsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewListSiteAssetsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type ListSiteAssetsOK struct {
 
 func (o *ListSiteAssetsOK) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/assets][%d] listSiteAssetsOK  %+v", 200, o.Payload)
+}
+
+func (o *ListSiteAssetsOK) GetPayload() []*models.Asset {
+	return o.Payload
 }
 
 func (o *ListSiteAssetsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -95,6 +96,10 @@ func (o *ListSiteAssetsDefault) Code() int {
 
 func (o *ListSiteAssetsDefault) Error() string {
 	return fmt.Sprintf("[GET /sites/{site_id}/assets][%d] listSiteAssets default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListSiteAssetsDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *ListSiteAssetsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

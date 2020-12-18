@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // GetDeployKeyReader is a Reader for the GetDeployKey structure.
@@ -24,14 +23,12 @@ type GetDeployKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeployKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeployKeyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewGetDeployKeyDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type GetDeployKeyOK struct {
 
 func (o *GetDeployKeyOK) Error() string {
 	return fmt.Sprintf("[GET /deploy_keys/{key_id}][%d] getDeployKeyOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeployKeyOK) GetPayload() *models.DeployKey {
+	return o.Payload
 }
 
 func (o *GetDeployKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *GetDeployKeyDefault) Code() int {
 
 func (o *GetDeployKeyDefault) Error() string {
 	return fmt.Sprintf("[GET /deploy_keys/{key_id}][%d] getDeployKey default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *GetDeployKeyDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *GetDeployKeyDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/cenkalti/backoff"
+	"github.com/cenkalti/backoff/v4"
 	"github.com/netlify/open-api/go/models"
 	"github.com/netlify/open-api/go/plumbing/operations"
 	"github.com/netlify/open-api/go/porcelain/context"
@@ -36,6 +36,18 @@ func (n *Netlify) GetSite(ctx context.Context, siteID string) (*models.Site, err
 		return nil, err
 	}
 	return resp.Payload, nil
+}
+
+// DeleteSite deletes a site.
+func (n *Netlify) DeleteSite(ctx context.Context, siteID string) error {
+	authInfo := context.GetAuthInfo(ctx)
+
+	_, err := n.Netlify.Operations.DeleteSite(operations.NewDeleteSiteParams().WithSiteID(siteID), authInfo)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // CreateSite creates a new site.

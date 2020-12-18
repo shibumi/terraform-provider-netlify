@@ -6,13 +6,14 @@ package operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new operations API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,223 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	AddMemberToAccount(params *AddMemberToAccountParams, authInfo runtime.ClientAuthInfoWriter) (*AddMemberToAccountOK, error)
+
+	CancelAccount(params *CancelAccountParams, authInfo runtime.ClientAuthInfoWriter) (*CancelAccountNoContent, error)
+
+	CancelSiteDeploy(params *CancelSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*CancelSiteDeployCreated, error)
+
+	ConfigureDNSForSite(params *ConfigureDNSForSiteParams, authInfo runtime.ClientAuthInfoWriter) (*ConfigureDNSForSiteOK, error)
+
+	CreateAccount(params *CreateAccountParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAccountCreated, error)
+
+	CreateDeployKey(params *CreateDeployKeyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeployKeyCreated, error)
+
+	CreateDNSRecord(params *CreateDNSRecordParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDNSRecordCreated, error)
+
+	CreateDNSZone(params *CreateDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDNSZoneCreated, error)
+
+	CreateHookBySiteID(params *CreateHookBySiteIDParams, authInfo runtime.ClientAuthInfoWriter) (*CreateHookBySiteIDCreated, error)
+
+	CreatePluginRun(params *CreatePluginRunParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePluginRunCreated, error)
+
+	CreateServiceInstance(params *CreateServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*CreateServiceInstanceCreated, error)
+
+	CreateSite(params *CreateSiteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteCreated, error)
+
+	CreateSiteAsset(params *CreateSiteAssetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteAssetCreated, error)
+
+	CreateSiteBuild(params *CreateSiteBuildParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteBuildOK, error)
+
+	CreateSiteBuildHook(params *CreateSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteBuildHookCreated, error)
+
+	CreateSiteDeploy(params *CreateSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteDeployOK, error)
+
+	CreateSiteInTeam(params *CreateSiteInTeamParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteInTeamCreated, error)
+
+	CreateSiteSnippet(params *CreateSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteSnippetCreated, error)
+
+	CreateSplitTest(params *CreateSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSplitTestCreated, error)
+
+	CreateTicket(params *CreateTicketParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTicketCreated, error)
+
+	DeleteDeployKey(params *DeleteDeployKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeployKeyNoContent, error)
+
+	DeleteDNSRecord(params *DeleteDNSRecordParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDNSRecordNoContent, error)
+
+	DeleteDNSZone(params *DeleteDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDNSZoneNoContent, error)
+
+	DeleteHook(params *DeleteHookParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteHookNoContent, error)
+
+	DeleteServiceInstance(params *DeleteServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteServiceInstanceNoContent, error)
+
+	DeleteSite(params *DeleteSiteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteNoContent, error)
+
+	DeleteSiteAsset(params *DeleteSiteAssetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteAssetNoContent, error)
+
+	DeleteSiteBuildHook(params *DeleteSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteBuildHookNoContent, error)
+
+	DeleteSiteForm(params *DeleteSiteFormParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteFormNoContent, error)
+
+	DeleteSiteSnippet(params *DeleteSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteSnippetNoContent, error)
+
+	DeleteSubmission(params *DeleteSubmissionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSubmissionNoContent, error)
+
+	DisableSplitTest(params *DisableSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*DisableSplitTestNoContent, error)
+
+	EnableHook(params *EnableHookParams, authInfo runtime.ClientAuthInfoWriter) (*EnableHookOK, error)
+
+	EnableSplitTest(params *EnableSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*EnableSplitTestNoContent, error)
+
+	ExchangeTicket(params *ExchangeTicketParams, authInfo runtime.ClientAuthInfoWriter) (*ExchangeTicketCreated, error)
+
+	GetAccount(params *GetAccountParams, authInfo runtime.ClientAuthInfoWriter) (*GetAccountOK, error)
+
+	GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error)
+
+	GetDNSForSite(params *GetDNSForSiteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSForSiteOK, error)
+
+	GetDeploy(params *GetDeployParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeployOK, error)
+
+	GetDeployKey(params *GetDeployKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeployKeyOK, error)
+
+	GetDNSRecords(params *GetDNSRecordsParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSRecordsOK, error)
+
+	GetDNSZone(params *GetDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSZoneOK, error)
+
+	GetDNSZones(params *GetDNSZonesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSZonesOK, error)
+
+	GetHook(params *GetHookParams, authInfo runtime.ClientAuthInfoWriter) (*GetHookOK, error)
+
+	GetIndividualDNSRecord(params *GetIndividualDNSRecordParams, authInfo runtime.ClientAuthInfoWriter) (*GetIndividualDNSRecordOK, error)
+
+	GetServices(params *GetServicesParams, authInfo runtime.ClientAuthInfoWriter) (*GetServicesOK, error)
+
+	GetSite(params *GetSiteParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteOK, error)
+
+	GetSiteAssetInfo(params *GetSiteAssetInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteAssetInfoOK, error)
+
+	GetSiteAssetPublicSignature(params *GetSiteAssetPublicSignatureParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteAssetPublicSignatureOK, error)
+
+	GetSiteBuild(params *GetSiteBuildParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteBuildOK, error)
+
+	GetSiteBuildHook(params *GetSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteBuildHookOK, error)
+
+	GetSiteDeploy(params *GetSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteDeployOK, error)
+
+	GetSiteFileByPathName(params *GetSiteFileByPathNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteFileByPathNameOK, error)
+
+	GetSiteMetadata(params *GetSiteMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteMetadataOK, error)
+
+	GetSiteSnippet(params *GetSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteSnippetOK, error)
+
+	GetSplitTest(params *GetSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*GetSplitTestOK, error)
+
+	GetSplitTests(params *GetSplitTestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSplitTestsOK, error)
+
+	ListAccountAuditEvents(params *ListAccountAuditEventsParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccountAuditEventsOK, error)
+
+	ListAccountTypesForUser(params *ListAccountTypesForUserParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccountTypesForUserOK, error)
+
+	ListAccountsForUser(params *ListAccountsForUserParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccountsForUserOK, error)
+
+	ListDeployKeys(params *ListDeployKeysParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeployKeysOK, error)
+
+	ListFormSubmission(params *ListFormSubmissionParams, authInfo runtime.ClientAuthInfoWriter) (*ListFormSubmissionOK, error)
+
+	ListFormSubmissions(params *ListFormSubmissionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFormSubmissionsOK, error)
+
+	ListHookTypes(params *ListHookTypesParams, authInfo runtime.ClientAuthInfoWriter) (*ListHookTypesOK, error)
+
+	ListHooksBySiteID(params *ListHooksBySiteIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListHooksBySiteIDOK, error)
+
+	ListMembersForAccount(params *ListMembersForAccountParams, authInfo runtime.ClientAuthInfoWriter) (*ListMembersForAccountOK, error)
+
+	ListPaymentMethodsForUser(params *ListPaymentMethodsForUserParams, authInfo runtime.ClientAuthInfoWriter) (*ListPaymentMethodsForUserOK, error)
+
+	ListServiceInstancesForSite(params *ListServiceInstancesForSiteParams, authInfo runtime.ClientAuthInfoWriter) (*ListServiceInstancesForSiteOK, error)
+
+	ListSiteAssets(params *ListSiteAssetsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteAssetsOK, error)
+
+	ListSiteBuildHooks(params *ListSiteBuildHooksParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteBuildHooksOK, error)
+
+	ListSiteBuilds(params *ListSiteBuildsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteBuildsOK, error)
+
+	ListSiteDeployedBranches(params *ListSiteDeployedBranchesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteDeployedBranchesOK, error)
+
+	ListSiteDeploys(params *ListSiteDeploysParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteDeploysOK, error)
+
+	ListSiteFiles(params *ListSiteFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteFilesOK, error)
+
+	ListSiteForms(params *ListSiteFormsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteFormsOK, error)
+
+	ListSiteSnippets(params *ListSiteSnippetsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteSnippetsOK, error)
+
+	ListSiteSubmissions(params *ListSiteSubmissionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteSubmissionsOK, error)
+
+	ListSites(params *ListSitesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSitesOK, error)
+
+	ListSitesForAccount(params *ListSitesForAccountParams, authInfo runtime.ClientAuthInfoWriter) (*ListSitesForAccountOK, error)
+
+	LockDeploy(params *LockDeployParams, authInfo runtime.ClientAuthInfoWriter) (*LockDeployOK, error)
+
+	NotifyBuildStart(params *NotifyBuildStartParams, authInfo runtime.ClientAuthInfoWriter) (*NotifyBuildStartNoContent, error)
+
+	ProvisionSiteTLSCertificate(params *ProvisionSiteTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*ProvisionSiteTLSCertificateOK, error)
+
+	RestoreSiteDeploy(params *RestoreSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreSiteDeployCreated, error)
+
+	RollbackSiteDeploy(params *RollbackSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*RollbackSiteDeployNoContent, error)
+
+	ShowService(params *ShowServiceParams, authInfo runtime.ClientAuthInfoWriter) (*ShowServiceOK, error)
+
+	ShowServiceInstance(params *ShowServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*ShowServiceInstanceOK, error)
+
+	ShowServiceManifest(params *ShowServiceManifestParams, authInfo runtime.ClientAuthInfoWriter) (*ShowServiceManifestCreated, error)
+
+	ShowSiteTLSCertificate(params *ShowSiteTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*ShowSiteTLSCertificateOK, error)
+
+	ShowTicket(params *ShowTicketParams, authInfo runtime.ClientAuthInfoWriter) (*ShowTicketOK, error)
+
+	TransferDNSZone(params *TransferDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*TransferDNSZoneOK, error)
+
+	UnlinkSiteRepo(params *UnlinkSiteRepoParams, authInfo runtime.ClientAuthInfoWriter) (*UnlinkSiteRepoOK, error)
+
+	UnlockDeploy(params *UnlockDeployParams, authInfo runtime.ClientAuthInfoWriter) (*UnlockDeployOK, error)
+
+	UpdateAccount(params *UpdateAccountParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAccountOK, error)
+
+	UpdateHook(params *UpdateHookParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateHookOK, error)
+
+	UpdateServiceInstance(params *UpdateServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateServiceInstanceNoContent, error)
+
+	UpdateSite(params *UpdateSiteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteOK, error)
+
+	UpdateSiteAsset(params *UpdateSiteAssetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteAssetOK, error)
+
+	UpdateSiteBuildHook(params *UpdateSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteBuildHookNoContent, error)
+
+	UpdateSiteBuildLog(params *UpdateSiteBuildLogParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteBuildLogNoContent, error)
+
+	UpdateSiteDeploy(params *UpdateSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteDeployOK, error)
+
+	UpdateSiteMetadata(params *UpdateSiteMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteMetadataNoContent, error)
+
+	UpdateSiteSnippet(params *UpdateSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteSnippetNoContent, error)
+
+	UpdateSplitTest(params *UpdateSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSplitTestCreated, error)
+
+	UploadDeployFile(params *UploadDeployFileParams, authInfo runtime.ClientAuthInfoWriter) (*UploadDeployFileOK, error)
+
+	UploadDeployFunction(params *UploadDeployFunctionParams, authInfo runtime.ClientAuthInfoWriter) (*UploadDeployFunctionOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-AddMemberToAccount add member to account API
+  AddMemberToAccount add member to account API
 */
 func (a *Client) AddMemberToAccount(params *AddMemberToAccountParams, authInfo runtime.ClientAuthInfoWriter) (*AddMemberToAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +265,17 @@ func (a *Client) AddMemberToAccount(params *AddMemberToAccountParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AddMemberToAccountOK), nil
-
+	success, ok := result.(*AddMemberToAccountOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*AddMemberToAccountDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CancelAccount cancel account API
+  CancelAccount cancel account API
 */
 func (a *Client) CancelAccount(params *CancelAccountParams, authInfo runtime.ClientAuthInfoWriter) (*CancelAccountNoContent, error) {
 	// TODO: Validate the params before sending
@@ -78,12 +299,51 @@ func (a *Client) CancelAccount(params *CancelAccountParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CancelAccountNoContent), nil
-
+	success, ok := result.(*CancelAccountNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CancelAccountDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ConfigureDNSForSite configure DNS for site API
+  CancelSiteDeploy cancel site deploy API
+*/
+func (a *Client) CancelSiteDeploy(params *CancelSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*CancelSiteDeployCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCancelSiteDeployParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "cancelSiteDeploy",
+		Method:             "POST",
+		PathPattern:        "/deploys/{deploy_id}/cancel",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CancelSiteDeployReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CancelSiteDeployCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CancelSiteDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  ConfigureDNSForSite configure DNS for site API
 */
 func (a *Client) ConfigureDNSForSite(params *ConfigureDNSForSiteParams, authInfo runtime.ClientAuthInfoWriter) (*ConfigureDNSForSiteOK, error) {
 	// TODO: Validate the params before sending
@@ -107,12 +367,17 @@ func (a *Client) ConfigureDNSForSite(params *ConfigureDNSForSiteParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ConfigureDNSForSiteOK), nil
-
+	success, ok := result.(*ConfigureDNSForSiteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ConfigureDNSForSiteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateAccount create account API
+  CreateAccount create account API
 */
 func (a *Client) CreateAccount(params *CreateAccountParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAccountCreated, error) {
 	// TODO: Validate the params before sending
@@ -136,12 +401,17 @@ func (a *Client) CreateAccount(params *CreateAccountParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateAccountCreated), nil
-
+	success, ok := result.(*CreateAccountCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateAccountDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateDeployKey create deploy key API
+  CreateDeployKey create deploy key API
 */
 func (a *Client) CreateDeployKey(params *CreateDeployKeyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeployKeyCreated, error) {
 	// TODO: Validate the params before sending
@@ -165,12 +435,85 @@ func (a *Client) CreateDeployKey(params *CreateDeployKeyParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateDeployKeyCreated), nil
-
+	success, ok := result.(*CreateDeployKeyCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateDeployKeyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateHookBySiteID create hook by site Id API
+  CreateDNSRecord create Dns record API
+*/
+func (a *Client) CreateDNSRecord(params *CreateDNSRecordParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDNSRecordCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateDNSRecordParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createDnsRecord",
+		Method:             "POST",
+		PathPattern:        "/dns_zones/{zone_id}/dns_records",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateDNSRecordReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateDNSRecordCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateDNSRecordDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  CreateDNSZone create Dns zone API
+*/
+func (a *Client) CreateDNSZone(params *CreateDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDNSZoneCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateDNSZoneParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createDnsZone",
+		Method:             "POST",
+		PathPattern:        "/dns_zones",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateDNSZoneReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateDNSZoneCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateDNSZoneDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  CreateHookBySiteID create hook by site Id API
 */
 func (a *Client) CreateHookBySiteID(params *CreateHookBySiteIDParams, authInfo runtime.ClientAuthInfoWriter) (*CreateHookBySiteIDCreated, error) {
 	// TODO: Validate the params before sending
@@ -194,12 +537,51 @@ func (a *Client) CreateHookBySiteID(params *CreateHookBySiteIDParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateHookBySiteIDCreated), nil
-
+	success, ok := result.(*CreateHookBySiteIDCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateHookBySiteIDDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateServiceInstance create service instance API
+  CreatePluginRun This is an internal-only endpoint.
+*/
+func (a *Client) CreatePluginRun(params *CreatePluginRunParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePluginRunCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreatePluginRunParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createPluginRun",
+		Method:             "POST",
+		PathPattern:        "/deploys/{deploy_id}/plugin_runs",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreatePluginRunReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreatePluginRunCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreatePluginRunDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  CreateServiceInstance create service instance API
 */
 func (a *Client) CreateServiceInstance(params *CreateServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*CreateServiceInstanceCreated, error) {
 	// TODO: Validate the params before sending
@@ -223,12 +605,17 @@ func (a *Client) CreateServiceInstance(params *CreateServiceInstanceParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateServiceInstanceCreated), nil
-
+	success, ok := result.(*CreateServiceInstanceCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateServiceInstanceDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateSite create site API
+  CreateSite create site API
 */
 func (a *Client) CreateSite(params *CreateSiteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteCreated, error) {
 	// TODO: Validate the params before sending
@@ -252,12 +639,17 @@ func (a *Client) CreateSite(params *CreateSiteParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSiteCreated), nil
-
+	success, ok := result.(*CreateSiteCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSiteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateSiteAsset create site asset API
+  CreateSiteAsset create site asset API
 */
 func (a *Client) CreateSiteAsset(params *CreateSiteAssetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteAssetCreated, error) {
 	// TODO: Validate the params before sending
@@ -281,12 +673,17 @@ func (a *Client) CreateSiteAsset(params *CreateSiteAssetParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSiteAssetCreated), nil
-
+	success, ok := result.(*CreateSiteAssetCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSiteAssetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateSiteBuild create site build API
+  CreateSiteBuild create site build API
 */
 func (a *Client) CreateSiteBuild(params *CreateSiteBuildParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteBuildOK, error) {
 	// TODO: Validate the params before sending
@@ -310,12 +707,17 @@ func (a *Client) CreateSiteBuild(params *CreateSiteBuildParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSiteBuildOK), nil
-
+	success, ok := result.(*CreateSiteBuildOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSiteBuildDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateSiteBuildHook create site build hook API
+  CreateSiteBuildHook create site build hook API
 */
 func (a *Client) CreateSiteBuildHook(params *CreateSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteBuildHookCreated, error) {
 	// TODO: Validate the params before sending
@@ -339,12 +741,17 @@ func (a *Client) CreateSiteBuildHook(params *CreateSiteBuildHookParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSiteBuildHookCreated), nil
-
+	success, ok := result.(*CreateSiteBuildHookCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSiteBuildHookDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateSiteDeploy create site deploy API
+  CreateSiteDeploy create site deploy API
 */
 func (a *Client) CreateSiteDeploy(params *CreateSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteDeployOK, error) {
 	// TODO: Validate the params before sending
@@ -368,12 +775,17 @@ func (a *Client) CreateSiteDeploy(params *CreateSiteDeployParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSiteDeployOK), nil
-
+	success, ok := result.(*CreateSiteDeployOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSiteDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateSiteInTeam create site in team API
+  CreateSiteInTeam create site in team API
 */
 func (a *Client) CreateSiteInTeam(params *CreateSiteInTeamParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteInTeamCreated, error) {
 	// TODO: Validate the params before sending
@@ -397,12 +809,17 @@ func (a *Client) CreateSiteInTeam(params *CreateSiteInTeamParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSiteInTeamCreated), nil
-
+	success, ok := result.(*CreateSiteInTeamCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSiteInTeamDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateSiteSnippet create site snippet API
+  CreateSiteSnippet create site snippet API
 */
 func (a *Client) CreateSiteSnippet(params *CreateSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSiteSnippetCreated, error) {
 	// TODO: Validate the params before sending
@@ -426,12 +843,51 @@ func (a *Client) CreateSiteSnippet(params *CreateSiteSnippetParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSiteSnippetCreated), nil
-
+	success, ok := result.(*CreateSiteSnippetCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSiteSnippetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-CreateTicket create ticket API
+  CreateSplitTest create split test API
+*/
+func (a *Client) CreateSplitTest(params *CreateSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSplitTestCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateSplitTestParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createSplitTest",
+		Method:             "POST",
+		PathPattern:        "/sites/{site_id}/traffic_splits",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateSplitTestReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateSplitTestCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateSplitTestDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  CreateTicket create ticket API
 */
 func (a *Client) CreateTicket(params *CreateTicketParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTicketCreated, error) {
 	// TODO: Validate the params before sending
@@ -455,12 +911,17 @@ func (a *Client) CreateTicket(params *CreateTicketParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateTicketCreated), nil
-
+	success, ok := result.(*CreateTicketCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CreateTicketDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteDeployKey delete deploy key API
+  DeleteDeployKey delete deploy key API
 */
 func (a *Client) DeleteDeployKey(params *DeleteDeployKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeployKeyNoContent, error) {
 	// TODO: Validate the params before sending
@@ -484,28 +945,33 @@ func (a *Client) DeleteDeployKey(params *DeleteDeployKeyParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteDeployKeyNoContent), nil
-
+	success, ok := result.(*DeleteDeployKeyNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteDeployKeyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteHookBySiteID delete hook by site Id API
+  DeleteDNSRecord delete Dns record API
 */
-func (a *Client) DeleteHookBySiteID(params *DeleteHookBySiteIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteHookBySiteIDNoContent, error) {
+func (a *Client) DeleteDNSRecord(params *DeleteDNSRecordParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDNSRecordNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteHookBySiteIDParams()
+		params = NewDeleteDNSRecordParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteHookBySiteId",
+		ID:                 "deleteDnsRecord",
 		Method:             "DELETE",
-		PathPattern:        "/hooks/{hook_id}",
+		PathPattern:        "/dns_zones/{zone_id}/dns_records/{dns_record_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteHookBySiteIDReader{formats: a.formats},
+		Reader:             &DeleteDNSRecordReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -513,12 +979,86 @@ func (a *Client) DeleteHookBySiteID(params *DeleteHookBySiteIDParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteHookBySiteIDNoContent), nil
-
+	success, ok := result.(*DeleteDNSRecordNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteDNSRecordDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteServiceInstance delete service instance API
+  DeleteDNSZone delete Dns zone API
+*/
+func (a *Client) DeleteDNSZone(params *DeleteDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDNSZoneNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDNSZoneParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteDnsZone",
+		Method:             "DELETE",
+		PathPattern:        "/dns_zones/{zone_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteDNSZoneReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteDNSZoneNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteDNSZoneDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  DeleteHook delete hook API
+*/
+func (a *Client) DeleteHook(params *DeleteHookParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteHookNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteHookParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteHook",
+		Method:             "DELETE",
+		PathPattern:        "/hooks/{hook_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteHookReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteHookNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteHook: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteServiceInstance delete service instance API
 */
 func (a *Client) DeleteServiceInstance(params *DeleteServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteServiceInstanceNoContent, error) {
 	// TODO: Validate the params before sending
@@ -529,7 +1069,7 @@ func (a *Client) DeleteServiceInstance(params *DeleteServiceInstanceParams, auth
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteServiceInstance",
 		Method:             "DELETE",
-		PathPattern:        "/sites/{site_id}/services/{addon}/instances",
+		PathPattern:        "/sites/{site_id}/services/{addon}/instances/{instance_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -542,12 +1082,17 @@ func (a *Client) DeleteServiceInstance(params *DeleteServiceInstanceParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteServiceInstanceNoContent), nil
-
+	success, ok := result.(*DeleteServiceInstanceNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteServiceInstanceDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteSite delete site API
+  DeleteSite delete site API
 */
 func (a *Client) DeleteSite(params *DeleteSiteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteNoContent, error) {
 	// TODO: Validate the params before sending
@@ -571,12 +1116,17 @@ func (a *Client) DeleteSite(params *DeleteSiteParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSiteNoContent), nil
-
+	success, ok := result.(*DeleteSiteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSiteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteSiteAsset delete site asset API
+  DeleteSiteAsset delete site asset API
 */
 func (a *Client) DeleteSiteAsset(params *DeleteSiteAssetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteAssetNoContent, error) {
 	// TODO: Validate the params before sending
@@ -600,12 +1150,17 @@ func (a *Client) DeleteSiteAsset(params *DeleteSiteAssetParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSiteAssetNoContent), nil
-
+	success, ok := result.(*DeleteSiteAssetNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSiteAssetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteSiteBuildHook delete site build hook API
+  DeleteSiteBuildHook delete site build hook API
 */
 func (a *Client) DeleteSiteBuildHook(params *DeleteSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteBuildHookNoContent, error) {
 	// TODO: Validate the params before sending
@@ -629,12 +1184,51 @@ func (a *Client) DeleteSiteBuildHook(params *DeleteSiteBuildHookParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSiteBuildHookNoContent), nil
-
+	success, ok := result.(*DeleteSiteBuildHookNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSiteBuildHookDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteSiteSnippet delete site snippet API
+  DeleteSiteForm delete site form API
+*/
+func (a *Client) DeleteSiteForm(params *DeleteSiteFormParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteFormNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSiteFormParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteSiteForm",
+		Method:             "DELETE",
+		PathPattern:        "/sites/{site_id}/forms/{form_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSiteFormReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteSiteFormNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSiteFormDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  DeleteSiteSnippet delete site snippet API
 */
 func (a *Client) DeleteSiteSnippet(params *DeleteSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSiteSnippetNoContent, error) {
 	// TODO: Validate the params before sending
@@ -658,12 +1252,17 @@ func (a *Client) DeleteSiteSnippet(params *DeleteSiteSnippetParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSiteSnippetNoContent), nil
-
+	success, ok := result.(*DeleteSiteSnippetNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSiteSnippetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-DeleteSubmission delete submission API
+  DeleteSubmission delete submission API
 */
 func (a *Client) DeleteSubmission(params *DeleteSubmissionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSubmissionNoContent, error) {
 	// TODO: Validate the params before sending
@@ -687,12 +1286,51 @@ func (a *Client) DeleteSubmission(params *DeleteSubmissionParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSubmissionNoContent), nil
-
+	success, ok := result.(*DeleteSubmissionNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteSubmissionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-EnableHook enable hook API
+  DisableSplitTest disable split test API
+*/
+func (a *Client) DisableSplitTest(params *DisableSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*DisableSplitTestNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDisableSplitTestParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "disableSplitTest",
+		Method:             "POST",
+		PathPattern:        "/sites/{site_id}/traffic_splits/{split_test_id}/unpublish",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DisableSplitTestReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DisableSplitTestNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DisableSplitTestDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  EnableHook enable hook API
 */
 func (a *Client) EnableHook(params *EnableHookParams, authInfo runtime.ClientAuthInfoWriter) (*EnableHookOK, error) {
 	// TODO: Validate the params before sending
@@ -716,12 +1354,51 @@ func (a *Client) EnableHook(params *EnableHookParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*EnableHookOK), nil
-
+	success, ok := result.(*EnableHookOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*EnableHookDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ExchangeTicket exchange ticket API
+  EnableSplitTest enable split test API
+*/
+func (a *Client) EnableSplitTest(params *EnableSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*EnableSplitTestNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEnableSplitTestParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "enableSplitTest",
+		Method:             "POST",
+		PathPattern:        "/sites/{site_id}/traffic_splits/{split_test_id}/publish",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EnableSplitTestReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*EnableSplitTestNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*EnableSplitTestDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  ExchangeTicket exchange ticket API
 */
 func (a *Client) ExchangeTicket(params *ExchangeTicketParams, authInfo runtime.ClientAuthInfoWriter) (*ExchangeTicketCreated, error) {
 	// TODO: Validate the params before sending
@@ -745,12 +1422,17 @@ func (a *Client) ExchangeTicket(params *ExchangeTicketParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ExchangeTicketCreated), nil
-
+	success, ok := result.(*ExchangeTicketCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExchangeTicketDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetAccount get account API
+  GetAccount get account API
 */
 func (a *Client) GetAccount(params *GetAccountParams, authInfo runtime.ClientAuthInfoWriter) (*GetAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -774,12 +1456,17 @@ func (a *Client) GetAccount(params *GetAccountParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAccountOK), nil
-
+	success, ok := result.(*GetAccountOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetAccountDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetCurrentUser get current user API
+  GetCurrentUser get current user API
 */
 func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error) {
 	// TODO: Validate the params before sending
@@ -803,12 +1490,17 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetCurrentUserOK), nil
-
+	success, ok := result.(*GetCurrentUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetCurrentUserDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetDNSForSite get DNS for site API
+  GetDNSForSite get DNS for site API
 */
 func (a *Client) GetDNSForSite(params *GetDNSForSiteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSForSiteOK, error) {
 	// TODO: Validate the params before sending
@@ -832,12 +1524,17 @@ func (a *Client) GetDNSForSite(params *GetDNSForSiteParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDNSForSiteOK), nil
-
+	success, ok := result.(*GetDNSForSiteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDNSForSiteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetDeploy get deploy API
+  GetDeploy get deploy API
 */
 func (a *Client) GetDeploy(params *GetDeployParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeployOK, error) {
 	// TODO: Validate the params before sending
@@ -861,12 +1558,17 @@ func (a *Client) GetDeploy(params *GetDeployParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeployOK), nil
-
+	success, ok := result.(*GetDeployOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetDeployKey get deploy key API
+  GetDeployKey get deploy key API
 */
 func (a *Client) GetDeployKey(params *GetDeployKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeployKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -890,12 +1592,119 @@ func (a *Client) GetDeployKey(params *GetDeployKeyParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeployKeyOK), nil
-
+	success, ok := result.(*GetDeployKeyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDeployKeyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetHook get hook API
+  GetDNSRecords get Dns records API
+*/
+func (a *Client) GetDNSRecords(params *GetDNSRecordsParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSRecordsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDNSRecordsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDnsRecords",
+		Method:             "GET",
+		PathPattern:        "/dns_zones/{zone_id}/dns_records",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDNSRecordsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDNSRecordsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDNSRecordsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  GetDNSZone get Dns zone API
+*/
+func (a *Client) GetDNSZone(params *GetDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSZoneOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDNSZoneParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDnsZone",
+		Method:             "GET",
+		PathPattern:        "/dns_zones/{zone_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDNSZoneReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDNSZoneOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDNSZoneDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  GetDNSZones get Dns zones API
+*/
+func (a *Client) GetDNSZones(params *GetDNSZonesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDNSZonesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDNSZonesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDnsZones",
+		Method:             "GET",
+		PathPattern:        "/dns_zones",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDNSZonesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDNSZonesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetDNSZonesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  GetHook get hook API
 */
 func (a *Client) GetHook(params *GetHookParams, authInfo runtime.ClientAuthInfoWriter) (*GetHookOK, error) {
 	// TODO: Validate the params before sending
@@ -919,12 +1728,51 @@ func (a *Client) GetHook(params *GetHookParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetHookOK), nil
-
+	success, ok := result.(*GetHookOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetHookDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetServices get services API
+  GetIndividualDNSRecord get individual Dns record API
+*/
+func (a *Client) GetIndividualDNSRecord(params *GetIndividualDNSRecordParams, authInfo runtime.ClientAuthInfoWriter) (*GetIndividualDNSRecordOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetIndividualDNSRecordParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getIndividualDnsRecord",
+		Method:             "GET",
+		PathPattern:        "/dns_zones/{zone_id}/dns_records/{dns_record_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetIndividualDNSRecordReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetIndividualDNSRecordOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetIndividualDNSRecordDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  GetServices get services API
 */
 func (a *Client) GetServices(params *GetServicesParams, authInfo runtime.ClientAuthInfoWriter) (*GetServicesOK, error) {
 	// TODO: Validate the params before sending
@@ -948,12 +1796,17 @@ func (a *Client) GetServices(params *GetServicesParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetServicesOK), nil
-
+	success, ok := result.(*GetServicesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetServicesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSite get site API
+  GetSite get site API
 */
 func (a *Client) GetSite(params *GetSiteParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteOK, error) {
 	// TODO: Validate the params before sending
@@ -977,12 +1830,17 @@ func (a *Client) GetSite(params *GetSiteParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteOK), nil
-
+	success, ok := result.(*GetSiteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteAssetInfo get site asset info API
+  GetSiteAssetInfo get site asset info API
 */
 func (a *Client) GetSiteAssetInfo(params *GetSiteAssetInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteAssetInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -1006,12 +1864,17 @@ func (a *Client) GetSiteAssetInfo(params *GetSiteAssetInfoParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteAssetInfoOK), nil
-
+	success, ok := result.(*GetSiteAssetInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteAssetInfoDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteAssetPublicSignature get site asset public signature API
+  GetSiteAssetPublicSignature get site asset public signature API
 */
 func (a *Client) GetSiteAssetPublicSignature(params *GetSiteAssetPublicSignatureParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteAssetPublicSignatureOK, error) {
 	// TODO: Validate the params before sending
@@ -1035,12 +1898,17 @@ func (a *Client) GetSiteAssetPublicSignature(params *GetSiteAssetPublicSignature
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteAssetPublicSignatureOK), nil
-
+	success, ok := result.(*GetSiteAssetPublicSignatureOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteAssetPublicSignatureDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteBuild get site build API
+  GetSiteBuild get site build API
 */
 func (a *Client) GetSiteBuild(params *GetSiteBuildParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteBuildOK, error) {
 	// TODO: Validate the params before sending
@@ -1064,12 +1932,17 @@ func (a *Client) GetSiteBuild(params *GetSiteBuildParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteBuildOK), nil
-
+	success, ok := result.(*GetSiteBuildOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteBuildDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteBuildHook get site build hook API
+  GetSiteBuildHook get site build hook API
 */
 func (a *Client) GetSiteBuildHook(params *GetSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteBuildHookOK, error) {
 	// TODO: Validate the params before sending
@@ -1093,12 +1966,17 @@ func (a *Client) GetSiteBuildHook(params *GetSiteBuildHookParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteBuildHookOK), nil
-
+	success, ok := result.(*GetSiteBuildHookOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteBuildHookDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteDeploy get site deploy API
+  GetSiteDeploy get site deploy API
 */
 func (a *Client) GetSiteDeploy(params *GetSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteDeployOK, error) {
 	// TODO: Validate the params before sending
@@ -1122,12 +2000,17 @@ func (a *Client) GetSiteDeploy(params *GetSiteDeployParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteDeployOK), nil
-
+	success, ok := result.(*GetSiteDeployOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteFileByPathName get site file by path name API
+  GetSiteFileByPathName get site file by path name API
 */
 func (a *Client) GetSiteFileByPathName(params *GetSiteFileByPathNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteFileByPathNameOK, error) {
 	// TODO: Validate the params before sending
@@ -1151,12 +2034,17 @@ func (a *Client) GetSiteFileByPathName(params *GetSiteFileByPathNameParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteFileByPathNameOK), nil
-
+	success, ok := result.(*GetSiteFileByPathNameOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteFileByPathNameDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteMetadata get site metadata API
+  GetSiteMetadata get site metadata API
 */
 func (a *Client) GetSiteMetadata(params *GetSiteMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteMetadataOK, error) {
 	// TODO: Validate the params before sending
@@ -1180,12 +2068,17 @@ func (a *Client) GetSiteMetadata(params *GetSiteMetadataParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteMetadataOK), nil
-
+	success, ok := result.(*GetSiteMetadataOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteMetadataDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetSiteSnippet get site snippet API
+  GetSiteSnippet get site snippet API
 */
 func (a *Client) GetSiteSnippet(params *GetSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*GetSiteSnippetOK, error) {
 	// TODO: Validate the params before sending
@@ -1209,12 +2102,85 @@ func (a *Client) GetSiteSnippet(params *GetSiteSnippetParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSiteSnippetOK), nil
-
+	success, ok := result.(*GetSiteSnippetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSiteSnippetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListAccountAuditEvents list account audit events API
+  GetSplitTest get split test API
+*/
+func (a *Client) GetSplitTest(params *GetSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*GetSplitTestOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSplitTestParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getSplitTest",
+		Method:             "GET",
+		PathPattern:        "/sites/{site_id}/traffic_splits/{split_test_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSplitTestReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSplitTestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSplitTestDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  GetSplitTests get split tests API
+*/
+func (a *Client) GetSplitTests(params *GetSplitTestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSplitTestsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSplitTestsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getSplitTests",
+		Method:             "GET",
+		PathPattern:        "/sites/{site_id}/traffic_splits",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSplitTestsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSplitTestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*GetSplitTestsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  ListAccountAuditEvents list account audit events API
 */
 func (a *Client) ListAccountAuditEvents(params *ListAccountAuditEventsParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccountAuditEventsOK, error) {
 	// TODO: Validate the params before sending
@@ -1238,12 +2204,17 @@ func (a *Client) ListAccountAuditEvents(params *ListAccountAuditEventsParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListAccountAuditEventsOK), nil
-
+	success, ok := result.(*ListAccountAuditEventsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListAccountAuditEventsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListAccountTypesForUser list account types for user API
+  ListAccountTypesForUser list account types for user API
 */
 func (a *Client) ListAccountTypesForUser(params *ListAccountTypesForUserParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccountTypesForUserOK, error) {
 	// TODO: Validate the params before sending
@@ -1267,12 +2238,17 @@ func (a *Client) ListAccountTypesForUser(params *ListAccountTypesForUserParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListAccountTypesForUserOK), nil
-
+	success, ok := result.(*ListAccountTypesForUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListAccountTypesForUserDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListAccountsForUser list accounts for user API
+  ListAccountsForUser list accounts for user API
 */
 func (a *Client) ListAccountsForUser(params *ListAccountsForUserParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccountsForUserOK, error) {
 	// TODO: Validate the params before sending
@@ -1296,12 +2272,17 @@ func (a *Client) ListAccountsForUser(params *ListAccountsForUserParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListAccountsForUserOK), nil
-
+	success, ok := result.(*ListAccountsForUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListAccountsForUserDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListDeployKeys list deploy keys API
+  ListDeployKeys list deploy keys API
 */
 func (a *Client) ListDeployKeys(params *ListDeployKeysParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeployKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -1325,12 +2306,17 @@ func (a *Client) ListDeployKeys(params *ListDeployKeysParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListDeployKeysOK), nil
-
+	success, ok := result.(*ListDeployKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListDeployKeysDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListFormSubmission list form submission API
+  ListFormSubmission list form submission API
 */
 func (a *Client) ListFormSubmission(params *ListFormSubmissionParams, authInfo runtime.ClientAuthInfoWriter) (*ListFormSubmissionOK, error) {
 	// TODO: Validate the params before sending
@@ -1354,12 +2340,17 @@ func (a *Client) ListFormSubmission(params *ListFormSubmissionParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListFormSubmissionOK), nil
-
+	success, ok := result.(*ListFormSubmissionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListFormSubmissionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListFormSubmissions list form submissions API
+  ListFormSubmissions list form submissions API
 */
 func (a *Client) ListFormSubmissions(params *ListFormSubmissionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFormSubmissionsOK, error) {
 	// TODO: Validate the params before sending
@@ -1383,41 +2374,17 @@ func (a *Client) ListFormSubmissions(params *ListFormSubmissionsParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListFormSubmissionsOK), nil
-
+	success, ok := result.(*ListFormSubmissionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListFormSubmissionsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListForms list forms API
-*/
-func (a *Client) ListForms(params *ListFormsParams, authInfo runtime.ClientAuthInfoWriter) (*ListFormsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewListFormsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listForms",
-		Method:             "GET",
-		PathPattern:        "/forms",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &ListFormsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ListFormsOK), nil
-
-}
-
-/*
-ListHookTypes list hook types API
+  ListHookTypes list hook types API
 */
 func (a *Client) ListHookTypes(params *ListHookTypesParams, authInfo runtime.ClientAuthInfoWriter) (*ListHookTypesOK, error) {
 	// TODO: Validate the params before sending
@@ -1441,12 +2408,17 @@ func (a *Client) ListHookTypes(params *ListHookTypesParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListHookTypesOK), nil
-
+	success, ok := result.(*ListHookTypesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListHookTypesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListHooksBySiteID list hooks by site Id API
+  ListHooksBySiteID list hooks by site Id API
 */
 func (a *Client) ListHooksBySiteID(params *ListHooksBySiteIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListHooksBySiteIDOK, error) {
 	// TODO: Validate the params before sending
@@ -1470,12 +2442,17 @@ func (a *Client) ListHooksBySiteID(params *ListHooksBySiteIDParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListHooksBySiteIDOK), nil
-
+	success, ok := result.(*ListHooksBySiteIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListHooksBySiteIDDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListMembersForAccount list members for account API
+  ListMembersForAccount list members for account API
 */
 func (a *Client) ListMembersForAccount(params *ListMembersForAccountParams, authInfo runtime.ClientAuthInfoWriter) (*ListMembersForAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -1499,12 +2476,17 @@ func (a *Client) ListMembersForAccount(params *ListMembersForAccountParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListMembersForAccountOK), nil
-
+	success, ok := result.(*ListMembersForAccountOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListMembersForAccountDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListPaymentMethodsForUser list payment methods for user API
+  ListPaymentMethodsForUser list payment methods for user API
 */
 func (a *Client) ListPaymentMethodsForUser(params *ListPaymentMethodsForUserParams, authInfo runtime.ClientAuthInfoWriter) (*ListPaymentMethodsForUserOK, error) {
 	// TODO: Validate the params before sending
@@ -1528,12 +2510,51 @@ func (a *Client) ListPaymentMethodsForUser(params *ListPaymentMethodsForUserPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListPaymentMethodsForUserOK), nil
-
+	success, ok := result.(*ListPaymentMethodsForUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListPaymentMethodsForUserDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteAssets list site assets API
+  ListServiceInstancesForSite list service instances for site API
+*/
+func (a *Client) ListServiceInstancesForSite(params *ListServiceInstancesForSiteParams, authInfo runtime.ClientAuthInfoWriter) (*ListServiceInstancesForSiteOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListServiceInstancesForSiteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listServiceInstancesForSite",
+		Method:             "GET",
+		PathPattern:        "/sites/{site_id}/service-instances",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ListServiceInstancesForSiteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListServiceInstancesForSiteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListServiceInstancesForSiteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  ListSiteAssets list site assets API
 */
 func (a *Client) ListSiteAssets(params *ListSiteAssetsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteAssetsOK, error) {
 	// TODO: Validate the params before sending
@@ -1557,12 +2578,17 @@ func (a *Client) ListSiteAssets(params *ListSiteAssetsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteAssetsOK), nil
-
+	success, ok := result.(*ListSiteAssetsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteAssetsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteBuildHooks list site build hooks API
+  ListSiteBuildHooks list site build hooks API
 */
 func (a *Client) ListSiteBuildHooks(params *ListSiteBuildHooksParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteBuildHooksOK, error) {
 	// TODO: Validate the params before sending
@@ -1586,12 +2612,17 @@ func (a *Client) ListSiteBuildHooks(params *ListSiteBuildHooksParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteBuildHooksOK), nil
-
+	success, ok := result.(*ListSiteBuildHooksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteBuildHooksDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteBuilds list site builds API
+  ListSiteBuilds list site builds API
 */
 func (a *Client) ListSiteBuilds(params *ListSiteBuildsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteBuildsOK, error) {
 	// TODO: Validate the params before sending
@@ -1615,12 +2646,17 @@ func (a *Client) ListSiteBuilds(params *ListSiteBuildsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteBuildsOK), nil
-
+	success, ok := result.(*ListSiteBuildsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteBuildsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteDeployedBranches list site deployed branches API
+  ListSiteDeployedBranches list site deployed branches API
 */
 func (a *Client) ListSiteDeployedBranches(params *ListSiteDeployedBranchesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteDeployedBranchesOK, error) {
 	// TODO: Validate the params before sending
@@ -1644,12 +2680,17 @@ func (a *Client) ListSiteDeployedBranches(params *ListSiteDeployedBranchesParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteDeployedBranchesOK), nil
-
+	success, ok := result.(*ListSiteDeployedBranchesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteDeployedBranchesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteDeploys list site deploys API
+  ListSiteDeploys list site deploys API
 */
 func (a *Client) ListSiteDeploys(params *ListSiteDeploysParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteDeploysOK, error) {
 	// TODO: Validate the params before sending
@@ -1673,12 +2714,17 @@ func (a *Client) ListSiteDeploys(params *ListSiteDeploysParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteDeploysOK), nil
-
+	success, ok := result.(*ListSiteDeploysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteDeploysDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteFiles list site files API
+  ListSiteFiles list site files API
 */
 func (a *Client) ListSiteFiles(params *ListSiteFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteFilesOK, error) {
 	// TODO: Validate the params before sending
@@ -1702,12 +2748,17 @@ func (a *Client) ListSiteFiles(params *ListSiteFilesParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteFilesOK), nil
-
+	success, ok := result.(*ListSiteFilesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteFilesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteForms list site forms API
+  ListSiteForms list site forms API
 */
 func (a *Client) ListSiteForms(params *ListSiteFormsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteFormsOK, error) {
 	// TODO: Validate the params before sending
@@ -1731,12 +2782,17 @@ func (a *Client) ListSiteForms(params *ListSiteFormsParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteFormsOK), nil
-
+	success, ok := result.(*ListSiteFormsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteFormsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteSnippets list site snippets API
+  ListSiteSnippets list site snippets API
 */
 func (a *Client) ListSiteSnippets(params *ListSiteSnippetsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteSnippetsOK, error) {
 	// TODO: Validate the params before sending
@@ -1760,12 +2816,17 @@ func (a *Client) ListSiteSnippets(params *ListSiteSnippetsParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteSnippetsOK), nil
-
+	success, ok := result.(*ListSiteSnippetsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteSnippetsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSiteSubmissions list site submissions API
+  ListSiteSubmissions list site submissions API
 */
 func (a *Client) ListSiteSubmissions(params *ListSiteSubmissionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListSiteSubmissionsOK, error) {
 	// TODO: Validate the params before sending
@@ -1789,12 +2850,17 @@ func (a *Client) ListSiteSubmissions(params *ListSiteSubmissionsParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSiteSubmissionsOK), nil
-
+	success, ok := result.(*ListSiteSubmissionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSiteSubmissionsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSites list sites API
+  ListSites list sites API
 */
 func (a *Client) ListSites(params *ListSitesParams, authInfo runtime.ClientAuthInfoWriter) (*ListSitesOK, error) {
 	// TODO: Validate the params before sending
@@ -1818,12 +2884,17 @@ func (a *Client) ListSites(params *ListSitesParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSitesOK), nil
-
+	success, ok := result.(*ListSitesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSitesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ListSitesForAccount list sites for account API
+  ListSitesForAccount list sites for account API
 */
 func (a *Client) ListSitesForAccount(params *ListSitesForAccountParams, authInfo runtime.ClientAuthInfoWriter) (*ListSitesForAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -1847,12 +2918,17 @@ func (a *Client) ListSitesForAccount(params *ListSitesForAccountParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListSitesForAccountOK), nil
-
+	success, ok := result.(*ListSitesForAccountOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListSitesForAccountDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-LockDeploy lock deploy API
+  LockDeploy lock deploy API
 */
 func (a *Client) LockDeploy(params *LockDeployParams, authInfo runtime.ClientAuthInfoWriter) (*LockDeployOK, error) {
 	// TODO: Validate the params before sending
@@ -1876,12 +2952,17 @@ func (a *Client) LockDeploy(params *LockDeployParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*LockDeployOK), nil
-
+	success, ok := result.(*LockDeployOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*LockDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-NotifyBuildStart notify build start API
+  NotifyBuildStart notify build start API
 */
 func (a *Client) NotifyBuildStart(params *NotifyBuildStartParams, authInfo runtime.ClientAuthInfoWriter) (*NotifyBuildStartNoContent, error) {
 	// TODO: Validate the params before sending
@@ -1905,12 +2986,17 @@ func (a *Client) NotifyBuildStart(params *NotifyBuildStartParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*NotifyBuildStartNoContent), nil
-
+	success, ok := result.(*NotifyBuildStartNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*NotifyBuildStartDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ProvisionSiteTLSCertificate provision site TLS certificate API
+  ProvisionSiteTLSCertificate provision site TLS certificate API
 */
 func (a *Client) ProvisionSiteTLSCertificate(params *ProvisionSiteTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*ProvisionSiteTLSCertificateOK, error) {
 	// TODO: Validate the params before sending
@@ -1934,12 +3020,17 @@ func (a *Client) ProvisionSiteTLSCertificate(params *ProvisionSiteTLSCertificate
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ProvisionSiteTLSCertificateOK), nil
-
+	success, ok := result.(*ProvisionSiteTLSCertificateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ProvisionSiteTLSCertificateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-RestoreSiteDeploy restore site deploy API
+  RestoreSiteDeploy restore site deploy API
 */
 func (a *Client) RestoreSiteDeploy(params *RestoreSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreSiteDeployCreated, error) {
 	// TODO: Validate the params before sending
@@ -1963,12 +3054,51 @@ func (a *Client) RestoreSiteDeploy(params *RestoreSiteDeployParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestoreSiteDeployCreated), nil
-
+	success, ok := result.(*RestoreSiteDeployCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*RestoreSiteDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ShowService show service API
+  RollbackSiteDeploy rollback site deploy API
+*/
+func (a *Client) RollbackSiteDeploy(params *RollbackSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*RollbackSiteDeployNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRollbackSiteDeployParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rollbackSiteDeploy",
+		Method:             "POST",
+		PathPattern:        "/sites/{site_id}/rollback",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RollbackSiteDeployReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RollbackSiteDeployNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*RollbackSiteDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  ShowService show service API
 */
 func (a *Client) ShowService(params *ShowServiceParams, authInfo runtime.ClientAuthInfoWriter) (*ShowServiceOK, error) {
 	// TODO: Validate the params before sending
@@ -1992,14 +3122,19 @@ func (a *Client) ShowService(params *ShowServiceParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShowServiceOK), nil
-
+	success, ok := result.(*ShowServiceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ShowServiceDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ShowServiceInstance show service instance API
+  ShowServiceInstance show service instance API
 */
-func (a *Client) ShowServiceInstance(params *ShowServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*ShowServiceInstanceCreated, error) {
+func (a *Client) ShowServiceInstance(params *ShowServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*ShowServiceInstanceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShowServiceInstanceParams()
@@ -2008,7 +3143,7 @@ func (a *Client) ShowServiceInstance(params *ShowServiceInstanceParams, authInfo
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "showServiceInstance",
 		Method:             "GET",
-		PathPattern:        "/sites/{site_id}/services/{addon}/instances",
+		PathPattern:        "/sites/{site_id}/services/{addon}/instances/{instance_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -2021,12 +3156,17 @@ func (a *Client) ShowServiceInstance(params *ShowServiceInstanceParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShowServiceInstanceCreated), nil
-
+	success, ok := result.(*ShowServiceInstanceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ShowServiceInstanceDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ShowServiceManifest show service manifest API
+  ShowServiceManifest show service manifest API
 */
 func (a *Client) ShowServiceManifest(params *ShowServiceManifestParams, authInfo runtime.ClientAuthInfoWriter) (*ShowServiceManifestCreated, error) {
 	// TODO: Validate the params before sending
@@ -2050,12 +3190,17 @@ func (a *Client) ShowServiceManifest(params *ShowServiceManifestParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShowServiceManifestCreated), nil
-
+	success, ok := result.(*ShowServiceManifestCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ShowServiceManifestDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ShowSiteTLSCertificate show site TLS certificate API
+  ShowSiteTLSCertificate show site TLS certificate API
 */
 func (a *Client) ShowSiteTLSCertificate(params *ShowSiteTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*ShowSiteTLSCertificateOK, error) {
 	// TODO: Validate the params before sending
@@ -2079,12 +3224,17 @@ func (a *Client) ShowSiteTLSCertificate(params *ShowSiteTLSCertificateParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShowSiteTLSCertificateOK), nil
-
+	success, ok := result.(*ShowSiteTLSCertificateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ShowSiteTLSCertificateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-ShowTicket show ticket API
+  ShowTicket show ticket API
 */
 func (a *Client) ShowTicket(params *ShowTicketParams, authInfo runtime.ClientAuthInfoWriter) (*ShowTicketOK, error) {
 	// TODO: Validate the params before sending
@@ -2108,12 +3258,91 @@ func (a *Client) ShowTicket(params *ShowTicketParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShowTicketOK), nil
-
+	success, ok := result.(*ShowTicketOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ShowTicketDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UnlockDeploy unlock deploy API
+  TransferDNSZone transfer Dns zone API
+*/
+func (a *Client) TransferDNSZone(params *TransferDNSZoneParams, authInfo runtime.ClientAuthInfoWriter) (*TransferDNSZoneOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewTransferDNSZoneParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "transferDnsZone",
+		Method:             "PUT",
+		PathPattern:        "/dns_zones/{zone_id}/transfer",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &TransferDNSZoneReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*TransferDNSZoneOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*TransferDNSZoneDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UnlinkSiteRepo [Beta] Unlinks the repo from the site.
+
+This action will also:
+- Delete associated deploy keys
+- Delete outgoing webhooks for the repo
+- Delete the site's build hooks
+*/
+func (a *Client) UnlinkSiteRepo(params *UnlinkSiteRepoParams, authInfo runtime.ClientAuthInfoWriter) (*UnlinkSiteRepoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUnlinkSiteRepoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "unlinkSiteRepo",
+		Method:             "PUT",
+		PathPattern:        "/sites/{site_id}/unlink_repo",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UnlinkSiteRepoReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UnlinkSiteRepoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for unlinkSiteRepo: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  UnlockDeploy unlock deploy API
 */
 func (a *Client) UnlockDeploy(params *UnlockDeployParams, authInfo runtime.ClientAuthInfoWriter) (*UnlockDeployOK, error) {
 	// TODO: Validate the params before sending
@@ -2137,12 +3366,17 @@ func (a *Client) UnlockDeploy(params *UnlockDeployParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UnlockDeployOK), nil
-
+	success, ok := result.(*UnlockDeployOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UnlockDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateAccount update account API
+  UpdateAccount update account API
 */
 func (a *Client) UpdateAccount(params *UpdateAccountParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -2166,12 +3400,17 @@ func (a *Client) UpdateAccount(params *UpdateAccountParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateAccountOK), nil
-
+	success, ok := result.(*UpdateAccountOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateAccountDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateHook update hook API
+  UpdateHook update hook API
 */
 func (a *Client) UpdateHook(params *UpdateHookParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateHookOK, error) {
 	// TODO: Validate the params before sending
@@ -2195,12 +3434,17 @@ func (a *Client) UpdateHook(params *UpdateHookParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateHookOK), nil
-
+	success, ok := result.(*UpdateHookOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateHookDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateServiceInstance update service instance API
+  UpdateServiceInstance update service instance API
 */
 func (a *Client) UpdateServiceInstance(params *UpdateServiceInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateServiceInstanceNoContent, error) {
 	// TODO: Validate the params before sending
@@ -2211,7 +3455,7 @@ func (a *Client) UpdateServiceInstance(params *UpdateServiceInstanceParams, auth
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateServiceInstance",
 		Method:             "PUT",
-		PathPattern:        "/sites/{site_id}/services/{addon}/instances",
+		PathPattern:        "/sites/{site_id}/services/{addon}/instances/{instance_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
@@ -2224,12 +3468,17 @@ func (a *Client) UpdateServiceInstance(params *UpdateServiceInstanceParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateServiceInstanceNoContent), nil
-
+	success, ok := result.(*UpdateServiceInstanceNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateServiceInstanceDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSite update site API
+  UpdateSite update site API
 */
 func (a *Client) UpdateSite(params *UpdateSiteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteOK, error) {
 	// TODO: Validate the params before sending
@@ -2253,12 +3502,17 @@ func (a *Client) UpdateSite(params *UpdateSiteParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSiteOK), nil
-
+	success, ok := result.(*UpdateSiteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSiteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSiteAsset update site asset API
+  UpdateSiteAsset update site asset API
 */
 func (a *Client) UpdateSiteAsset(params *UpdateSiteAssetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteAssetOK, error) {
 	// TODO: Validate the params before sending
@@ -2282,12 +3536,17 @@ func (a *Client) UpdateSiteAsset(params *UpdateSiteAssetParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSiteAssetOK), nil
-
+	success, ok := result.(*UpdateSiteAssetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSiteAssetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSiteBuildHook update site build hook API
+  UpdateSiteBuildHook update site build hook API
 */
 func (a *Client) UpdateSiteBuildHook(params *UpdateSiteBuildHookParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteBuildHookNoContent, error) {
 	// TODO: Validate the params before sending
@@ -2311,12 +3570,17 @@ func (a *Client) UpdateSiteBuildHook(params *UpdateSiteBuildHookParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSiteBuildHookNoContent), nil
-
+	success, ok := result.(*UpdateSiteBuildHookNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSiteBuildHookDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSiteBuildLog update site build log API
+  UpdateSiteBuildLog update site build log API
 */
 func (a *Client) UpdateSiteBuildLog(params *UpdateSiteBuildLogParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteBuildLogNoContent, error) {
 	// TODO: Validate the params before sending
@@ -2340,12 +3604,17 @@ func (a *Client) UpdateSiteBuildLog(params *UpdateSiteBuildLogParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSiteBuildLogNoContent), nil
-
+	success, ok := result.(*UpdateSiteBuildLogNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSiteBuildLogDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSiteDeploy update site deploy API
+  UpdateSiteDeploy update site deploy API
 */
 func (a *Client) UpdateSiteDeploy(params *UpdateSiteDeployParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteDeployOK, error) {
 	// TODO: Validate the params before sending
@@ -2369,12 +3638,17 @@ func (a *Client) UpdateSiteDeploy(params *UpdateSiteDeployParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSiteDeployOK), nil
-
+	success, ok := result.(*UpdateSiteDeployOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSiteDeployDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSiteMetadata update site metadata API
+  UpdateSiteMetadata update site metadata API
 */
 func (a *Client) UpdateSiteMetadata(params *UpdateSiteMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteMetadataNoContent, error) {
 	// TODO: Validate the params before sending
@@ -2398,12 +3672,17 @@ func (a *Client) UpdateSiteMetadata(params *UpdateSiteMetadataParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSiteMetadataNoContent), nil
-
+	success, ok := result.(*UpdateSiteMetadataNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSiteMetadataDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UpdateSiteSnippet update site snippet API
+  UpdateSiteSnippet update site snippet API
 */
 func (a *Client) UpdateSiteSnippet(params *UpdateSiteSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSiteSnippetNoContent, error) {
 	// TODO: Validate the params before sending
@@ -2427,12 +3706,51 @@ func (a *Client) UpdateSiteSnippet(params *UpdateSiteSnippetParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSiteSnippetNoContent), nil
-
+	success, ok := result.(*UpdateSiteSnippetNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSiteSnippetDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UploadDeployFile upload deploy file API
+  UpdateSplitTest update split test API
+*/
+func (a *Client) UpdateSplitTest(params *UpdateSplitTestParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSplitTestCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSplitTestParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateSplitTest",
+		Method:             "PUT",
+		PathPattern:        "/sites/{site_id}/traffic_splits/{split_test_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateSplitTestReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateSplitTestCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UpdateSplitTestDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  UploadDeployFile upload deploy file API
 */
 func (a *Client) UploadDeployFile(params *UploadDeployFileParams, authInfo runtime.ClientAuthInfoWriter) (*UploadDeployFileOK, error) {
 	// TODO: Validate the params before sending
@@ -2456,12 +3774,17 @@ func (a *Client) UploadDeployFile(params *UploadDeployFileParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UploadDeployFileOK), nil
-
+	success, ok := result.(*UploadDeployFileOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UploadDeployFileDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-UploadDeployFunction upload deploy function API
+  UploadDeployFunction upload deploy function API
 */
 func (a *Client) UploadDeployFunction(params *UploadDeployFunctionParams, authInfo runtime.ClientAuthInfoWriter) (*UploadDeployFunctionOK, error) {
 	// TODO: Validate the params before sending
@@ -2485,8 +3808,13 @@ func (a *Client) UploadDeployFunction(params *UploadDeployFunctionParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UploadDeployFunctionOK), nil
-
+	success, ok := result.(*UploadDeployFunctionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UploadDeployFunctionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

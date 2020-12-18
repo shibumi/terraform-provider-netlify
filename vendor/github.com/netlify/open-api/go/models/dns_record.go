@@ -6,14 +6,20 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // DNSRecord dns record
+//
 // swagger:model dnsRecord
 type DNSRecord struct {
+
+	// dns zone id
+	DNSZoneID string `json:"dns_zone_id,omitempty"`
+
+	// flag
+	Flag int64 `json:"flag,omitempty"`
 
 	// hostname
 	Hostname string `json:"hostname,omitempty"`
@@ -21,8 +27,17 @@ type DNSRecord struct {
 	// id
 	ID string `json:"id,omitempty"`
 
+	// managed
+	Managed bool `json:"managed,omitempty"`
+
 	// priority
 	Priority int64 `json:"priority,omitempty"`
+
+	// site id
+	SiteID string `json:"site_id,omitempty"`
+
+	// tag
+	Tag string `json:"tag,omitempty"`
 
 	// ttl
 	TTL int64 `json:"ttl,omitempty"`

@@ -41,9 +41,9 @@ func TestAccHook_disappears(t *testing.T) {
 
 	destroy := func(*terraform.State) error {
 		meta := testAccProvider.Meta().(*Meta)
-		params := operations.NewDeleteHookBySiteIDParams()
+		params := operations.NewDeleteHookParams()
 		params.HookID = hook.ID
-		_, err := meta.Netlify.Operations.DeleteHookBySiteID(params, meta.AuthInfo)
+		_, err := meta.Netlify.Operations.DeleteHook(params, meta.AuthInfo)
 		return err
 	}
 

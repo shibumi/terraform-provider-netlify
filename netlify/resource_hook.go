@@ -95,9 +95,9 @@ func resourceHookUpdate(d *schema.ResourceData, metaRaw interface{}) error {
 
 func resourceHookDelete(d *schema.ResourceData, metaRaw interface{}) error {
 	meta := metaRaw.(*Meta)
-	params := operations.NewDeleteHookBySiteIDParams()
+	params := operations.NewDeleteHookParams()
 	params.HookID = d.Id()
-	_, err := meta.Netlify.Operations.DeleteHookBySiteID(params, meta.AuthInfo)
+	_, err := meta.Netlify.Operations.DeleteHook(params, meta.AuthInfo)
 	return err
 }
 

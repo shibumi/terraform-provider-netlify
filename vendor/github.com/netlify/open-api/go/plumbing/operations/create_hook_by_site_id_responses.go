@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // CreateHookBySiteIDReader is a Reader for the CreateHookBySiteID structure.
@@ -24,14 +23,12 @@ type CreateHookBySiteIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateHookBySiteIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateHookBySiteIDCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewCreateHookBySiteIDDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -59,6 +56,10 @@ type CreateHookBySiteIDCreated struct {
 
 func (o *CreateHookBySiteIDCreated) Error() string {
 	return fmt.Sprintf("[POST /hooks][%d] createHookBySiteIdCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateHookBySiteIDCreated) GetPayload() *models.Hook {
+	return o.Payload
 }
 
 func (o *CreateHookBySiteIDCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -97,6 +98,10 @@ func (o *CreateHookBySiteIDDefault) Code() int {
 
 func (o *CreateHookBySiteIDDefault) Error() string {
 	return fmt.Sprintf("[POST /hooks][%d] createHookBySiteId default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CreateHookBySiteIDDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *CreateHookBySiteIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

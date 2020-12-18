@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // DeleteDeployKeyReader is a Reader for the DeleteDeployKey structure.
@@ -24,14 +23,12 @@ type DeleteDeployKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteDeployKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteDeployKeyNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewDeleteDeployKeyDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +86,10 @@ func (o *DeleteDeployKeyDefault) Code() int {
 
 func (o *DeleteDeployKeyDefault) Error() string {
 	return fmt.Sprintf("[DELETE /deploy_keys/{key_id}][%d] deleteDeployKey default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteDeployKeyDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *DeleteDeployKeyDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

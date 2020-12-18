@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // NotifyBuildStartReader is a Reader for the NotifyBuildStart structure.
@@ -24,14 +23,12 @@ type NotifyBuildStartReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *NotifyBuildStartReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewNotifyBuildStartNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewNotifyBuildStartDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +86,10 @@ func (o *NotifyBuildStartDefault) Code() int {
 
 func (o *NotifyBuildStartDefault) Error() string {
 	return fmt.Sprintf("[POST /builds/{build_id}/start][%d] notifyBuildStart default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *NotifyBuildStartDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *NotifyBuildStartDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

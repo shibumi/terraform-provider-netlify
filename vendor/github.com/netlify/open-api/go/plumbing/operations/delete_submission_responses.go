@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/netlify/open-api/go/models"
+	"github.com/netlify/open-api/go/models"
 )
 
 // DeleteSubmissionReader is a Reader for the DeleteSubmission structure.
@@ -24,14 +23,12 @@ type DeleteSubmissionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSubmissionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteSubmissionNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		result := NewDeleteSubmissionDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -89,6 +86,10 @@ func (o *DeleteSubmissionDefault) Code() int {
 
 func (o *DeleteSubmissionDefault) Error() string {
 	return fmt.Sprintf("[DELETE /submissions/{submission_id}][%d] deleteSubmission default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteSubmissionDefault) GetPayload() *models.Error {
+	return o.Payload
 }
 
 func (o *DeleteSubmissionDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
