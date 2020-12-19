@@ -65,6 +65,7 @@ func resourceDnsRecordCreate(d *schema.ResourceData, metaRaw interface{}) error 
 func resourceDnsRecordRead(d *schema.ResourceData, metaRaw interface{}) error {
 	meta := metaRaw.(*Meta)
 	params := operations.NewGetIndividualDNSRecordParams()
+	params.ZoneID = d.Get("zone_id").(string)
 	params.DNSRecordID = d.Id()
 	resp, err := meta.Netlify.Operations.GetIndividualDNSRecord(params, meta.AuthInfo)
 	if err != nil {
