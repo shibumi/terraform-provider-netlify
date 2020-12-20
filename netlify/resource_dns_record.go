@@ -90,6 +90,7 @@ func resourceDnsRecordRead(d *schema.ResourceData, metaRaw interface{}) error {
 func resourceDnsRecordDelete(d *schema.ResourceData, metaRaw interface{}) error {
 	meta := metaRaw.(*Meta)
 	params := operations.NewDeleteDNSRecordParams()
+	params.ZoneID = d.Get("zone_id").(string)
 	params.DNSRecordID = d.Id()
 	_, err := meta.Netlify.Operations.DeleteDNSRecord(params, meta.AuthInfo)
 	return err
